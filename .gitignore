@@ -1,0 +1,23 @@
+.DS_Store
+evaquiz/dist
+evaquiz/package-lock.json
+evaquiz/node_modules
+evaquiz*.tar.gz
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.history
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
