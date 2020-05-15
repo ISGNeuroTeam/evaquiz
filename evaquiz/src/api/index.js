@@ -1,5 +1,6 @@
 import baseUrl from "./baseUrl.js";
 import downloadUrl from "./downloadUrl.js";
+import uploadFile from "./uploadFile.js";
 
 export default {
   getQuizs() {
@@ -34,7 +35,28 @@ export default {
   getUrlExel(answerID) {
     return baseUrl().get(`/qapi/quiz/filled/export?id=${answerID}`);
   },
-  downloadExel(exelUrl) {
-    return downloadUrl().get(exelUrl);
+  downloadFromUrl(Url) {
+    return downloadUrl().get(Url);
+  },
+  exportQuetions(multi) {
+    return baseUrl().get(`/qapi/quiz/export?ids=${multi}`);
+  },
+  importQuetions(file) {
+    return uploadFile().post("/qapi/quiz/import", file);
+  },
+  getCatalogs() {
+    return baseUrl().get("/qapi/catalogs");
+  },
+  createCatalog(catalog) {
+    return baseUrl().post("/qapi/catalog/create", catalog);
+  },
+  getCatalog(catalogID) {
+    return baseUrl().get(`/qapi/catalog?id=${catalogID}`);
+  },
+  editCatalog(catalog) {
+    return baseUrl().put("/qapi/catalog/edit", catalog);
+  },
+  deleteCatalog(catalogID) {
+    return baseUrl().delete(`/qapi/catalog/delete?id=${catalogID}`);
   }
 };

@@ -1,4 +1,5 @@
 import Api from "@/api";
+import Common from "./common";
 
 const quiz = {
   namespaced: true,
@@ -6,10 +7,12 @@ const quiz = {
     quizs: [],
     quetions: [],
     answers: [],
+    filter: null,
     multi: {
       count: 0,
       array: []
-    }
+    },
+    constructorCount: 0
   },
   mutations: {
     SET_QUIZS(state, payload) {
@@ -63,6 +66,30 @@ const quiz = {
           quiz.multi--;
         }
       });
+    },
+    SET_FILTER(state, payload) {
+      state.filter = payload;
+    },
+    CONSTRUCTORCOUNT_PLUS(state) {
+      state.constructorCount++;
+    },
+    CONSTRUCTORCOUNT_ZERO(state) {
+      state.constructorCount = 0;
+    }
+  },
+  getters: {
+    filterQuizs(state) {
+      if (!state.filter) {
+        return state.quizs;
+      } else {
+        let _filterQuizs = [];
+        state.quizs.map(q => {
+          if (q.name.toLowerCase().includes(state.filter.toLowerCase())) {
+            _filterQuizs.push(q);
+          }
+        });
+        return _filterQuizs;
+      }
     }
   },
   actions: {
@@ -100,6 +127,19 @@ const quiz = {
 
     editQuiz(context, quiz) {
       return Api.editQuiz(quiz);
+    },
+
+    exportQuetions(context) {
+      return Api.exportQuetions(context.state.multi.array).then(data => {
+        let _file = Common.getNameAndFormat(data.data);
+        _file = Common.getNameAndFormat(_file.name);
+        Api.downloadFromUrl(data.data).then(response => {
+          Common.download({ name: _file.name, format: "eva.quiz" }, response);
+        });
+      });
+    },
+    importQuetions(context, file) {
+      return Api.importQuetions(file);
     }
   }
 };

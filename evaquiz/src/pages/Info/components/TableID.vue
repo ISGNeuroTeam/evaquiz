@@ -11,10 +11,11 @@
       hide-default-footer
       :items="items"
       :items-per-page="50"
+      :search="search"
       @click:row="clickRow"
     >
       <template v-slot:item.actions="{ item }">
-        <v-icon small class="mr-2" @click.stop="clickRow(item)">
+        <v-icon class="mr-2" @click.stop="clickRow(item)">
           mdi-magnify
         </v-icon>
       </template>
@@ -30,6 +31,13 @@ export default {
   name: "TableID",
   components: {
     DialogFullAnswer
+  },
+  props: {
+    search: {
+      type: String,
+      required: false,
+      default: null
+    }
   },
   data() {
     return {

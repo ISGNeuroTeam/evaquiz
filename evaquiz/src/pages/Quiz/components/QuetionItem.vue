@@ -86,7 +86,7 @@ export default {
       cid: 0,
       typesAnswer: [
         {
-          value: "bool",
+          value: "multi",
           text: "Логический"
         },
         {
@@ -126,6 +126,7 @@ export default {
       }
     },
     plusCascadeElement() {
+      console.log("plus");
       this.cid++;
       this.quetion.childs.push({ type: "select", text: "", id: this.cid });
     }

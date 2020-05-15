@@ -1,7 +1,10 @@
 <template>
   <v-app-bar light app color="primary" class="link-conteiner">
     <v-toolbar-title>
-      <router-link to="/quizs" class="link-style --first">Список </router-link>
+      <router-link to="/quiz" class="link-style --first">Список </router-link>
+    </v-toolbar-title>
+    <v-toolbar-title>
+      <router-link to="/directory" class="link-style">Справочник</router-link>
     </v-toolbar-title>
     <v-toolbar-title>
       <router-link to="/info" class="link-style --last">Информация</router-link>
@@ -16,11 +19,11 @@ export default {
 </script>
 <style scoped>
 .link-style {
-  color: #ffffff;
+  color: black;
   text-decoration: none;
   padding-right: 20px;
   padding-left: 20px;
-  border-right: 2px solid #ffffff;
+  border-right: 2px solid black;
 }
 .--first {
   padding-left: 0;
@@ -33,5 +36,8 @@ export default {
 .link-conteiner {
   padding-left: 40px;
   padding-right: 40px;
+}
+.router-link-active {
+  color: white;
 }
 </style>

@@ -174,7 +174,7 @@ export default {
       this.sid++;
       this.arrayQuetions.push({
         sid: this.sid,
-        type: "bool",
+        type: "multi",
         text: "",
         is_sign: false,
         label: ""

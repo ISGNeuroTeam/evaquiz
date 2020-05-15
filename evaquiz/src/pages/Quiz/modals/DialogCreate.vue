@@ -64,7 +64,7 @@ export default {
         this.sid = 0;
         this.quiz.questions.push({
           sid: this.sid,
-          type: "bool",
+          type: "multi",
           text: "",
           is_sign: false,
           label: ""
@@ -116,7 +116,7 @@ export default {
       this.sid++;
       this.quiz.questions.push({
         sid: this.sid,
-        type: "bool",
+        type: "multi",
         text: "",
         is_sign: false,
         label: ""

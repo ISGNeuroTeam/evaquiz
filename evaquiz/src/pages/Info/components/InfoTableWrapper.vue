@@ -6,9 +6,11 @@
       </v-btn>
 
       {{ title }}
+      <v-spacer />
+      <v-text-field v-model="filter" label="Фильтр" :clearable="true" />
     </v-card-title>
-    <TableID v-if="id" />
-    <TableAll v-else />
+    <TableID v-if="id" :search="filter" />
+    <TableAll v-else :search="filter" />
   </v-card>
 </template>
 
@@ -30,6 +32,11 @@ export default {
       required: false,
       default: null
     }
+  },
+  data() {
+    return {
+      filter: null
+    };
   },
   computed: {
     ...mapGetters({

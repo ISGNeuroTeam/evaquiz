@@ -70,9 +70,18 @@ export default {
       if (answer.type === "date") {
         return new Date(answer.answer.value).toLocaleDateString("ru-RU");
       }
-      if (answer.answer.value.toLowerCase() === "false") {
-        return answer.answer.value + ", " + answer.answer.description;
+      if (answer.type === "multi") {
+        if (answer.answer.value.toLowerCase() === "yes") {
+          return "Да";
+        }
+        if (answer.answer.value.toLowerCase() === "no") {
+          return "Нет, " + answer.answer.description;
+        }
+        if (answer.answer.value.toLowerCase() === "skip") {
+          return "Не применимо";
+        }
       }
+
       return answer.answer.value;
     },
     exel() {
@@ -97,4 +106,3 @@ export default {
   font-size: 12px;
 }
 </style>
-<style></style>

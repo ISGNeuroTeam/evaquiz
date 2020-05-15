@@ -88,6 +88,7 @@ export default {
       }
     },
     plusCascadeElement() {
+      console.log("plus");
       this.cid++;
       this.child.childs.push({ type: "select", text: "", id: this.cid });
     }

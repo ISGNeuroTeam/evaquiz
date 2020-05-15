@@ -1,4 +1,5 @@
 import Api from "@/api";
+import Common from "./common";
 
 function items(answers) {
   let _items = [];
@@ -14,16 +15,24 @@ function items(answers) {
         _item["sid" + q.sid] = new Date(q.answer.value).toLocaleDateString(
           "ru-RU"
         );
-      } else {
-        _item["sid" + q.sid] =
-          q.answer.value.toLowerCase() !== "false"
-            ? q.answer.value
-            : q.answer.value + ", " + q.answer.description;
+      }
+      if (q.type === "multi") {
+        if (q.answer.value.toLowerCase() === "yes") {
+          _item["sid" + q.sid] = "Да";
+        }
+        if (q.answer.value.toLowerCase() === "no") {
+          _item["sid" + q.sid] = "Нет, " + q.answer.description;
+        }
+        if (q.answer.value.toLowerCase() === "skip") {
+          _item["sid" + q.sid] = "Не применимо";
+        }
+      }
+      if (q.type !== "date" && q.type !== "multi") {
+        _item["sid" + q.sid] = q.answer.value;
       }
     });
     _items.push(_item);
   });
-
   return _items;
 }
 
@@ -79,44 +88,9 @@ function quizItems(quizs) {
 
 function answerByID(answers, id) {
   let _index = answers.findIndex(a => a.id === id);
-  if (_index > -1) return answers[_index].questions;
-}
-
-function getNameAndFormat(fileUrl) {
-  let _startIndex = fileUrl.indexOf("/", 1);
-  let _fileReverse = fileUrl
-    .slice(_startIndex + 1)
-    .split("")
-    .reverse()
-    .join("");
-
-  _startIndex = _fileReverse.indexOf(".", 1);
-
-  let file = {};
-
-  file.format = _fileReverse
-    .slice(0, _startIndex)
-    .split("")
-    .reverse()
-    .join("");
-
-  file.name = _fileReverse
-    .slice(_startIndex + 1)
-    .split("")
-    .reverse()
-    .join("");
-
-  return file;
-}
-
-function download(file, response) {
-  const url = window.URL.createObjectURL(new Blob([response.data]));
-  const link = document.createElement("a");
-  link.href = url;
-  link.target = "_blank";
-  link.setAttribute("download", file.name + "." + file.format);
-  document.body.appendChild(link);
-  link.click();
+  if (_index > -1) {
+    return answers[_index].questions;
+  }
 }
 
 const answer = {
@@ -177,9 +151,9 @@ const answer = {
 
     downloadExel(context) {
       Api.getUrlExel(context.state.answerID).then(data => {
-        let _file = getNameAndFormat(data.data);
-        Api.downloadExel(data.data).then(response => {
-          download(_file, response);
+        let _file = Common.getNameAndFormat(data.data);
+        Api.downloadFromUrl(data.data).then(response => {
+          Common.download(_file, response);
         });
       });
     }
