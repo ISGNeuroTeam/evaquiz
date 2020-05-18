@@ -3,9 +3,9 @@ import downloadUrl from "./downloadUrl.js";
 import uploadFile from "./uploadFile.js";
 
 export default {
-  getQuizs() {
+  getQuizs(offset = 0) {
     //получить все квизы
-    return baseUrl().get("/qapi/quizs");
+    return baseUrl().get(`/qapi/quizs?limit=10&offset=${offset}`);
   },
   getQuestions(multi) {
     return baseUrl().get(`/qapi/quiz/questions?ids=${multi}`);
@@ -26,11 +26,12 @@ export default {
     //редактировать
     return baseUrl().put("/qapi/quiz/edit", quiz);
   },
-  getAnswer(quizID) {
-    return baseUrl().get(`/qapi/quiz/filled?id=${quizID}`);
+  getAnswer(quizID, offset = 0) {
+    return baseUrl().get(`/qapi/quiz/filled?id=${quizID}
+&limit=10&offset=${offset}`);
   },
-  getAnswerAll() {
-    return baseUrl().get(`/qapi/quiz/filled`);
+  getAnswerAll(offset = 0) {
+    return baseUrl().get(`/qapi/quiz/filled?limit=10&offset=${offset}`);
   },
   getUrlExel(answerID) {
     return baseUrl().get(`/qapi/quiz/filled/export?id=${answerID}`);
@@ -44,8 +45,8 @@ export default {
   importQuetions(file) {
     return uploadFile().post("/qapi/quiz/import", file);
   },
-  getCatalogs() {
-    return baseUrl().get("/qapi/catalogs");
+  getCatalogs(offset = 0) {
+    return baseUrl().get(`/qapi/catalogs?limit=10&offset=${offset}`);
   },
   createCatalog(catalog) {
     return baseUrl().post("/qapi/catalog/create", catalog);

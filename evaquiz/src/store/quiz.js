@@ -16,7 +16,7 @@ const quiz = {
   },
   mutations: {
     SET_QUIZS(state, payload) {
-      payload.forEach(q => {
+      payload.data.forEach(q => {
         q.multi = null;
       });
       state.quizs = payload;
@@ -79,6 +79,7 @@ const quiz = {
   },
   getters: {
     filterQuizs(state) {
+      //TODO:сделать!
       if (!state.filter) {
         return state.quizs;
       } else {
@@ -95,7 +96,7 @@ const quiz = {
   actions: {
     getQuizs(context) {
       return Api.getQuizs().then(data => {
-        context.commit("SET_QUIZS", data.data.data);
+        context.commit("SET_QUIZS", data.data);
       });
     },
 

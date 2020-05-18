@@ -1,6 +1,6 @@
 <template>
   <div class="qp_main">
-    <QuizCart v-for="quiz in quizs" :key="quiz.id" :quiz="quiz" />
+    <QuizCart v-for="quiz in quizs.data" :key="quiz.id" :quiz="quiz" />
   </div>
 </template>
 

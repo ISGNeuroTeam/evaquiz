@@ -15,7 +15,7 @@
     <v-data-table
       :headers="headers"
       hide-default-footer
-      :items="quizs"
+      :items="quizs.data"
       :items-per-page="50"
     >
       <template v-slot:item.cheeck="{ item }">
@@ -42,6 +42,7 @@
         <v-icon class="mr-2" @click="clickDelete(item)"> mdi-delete</v-icon>
       </template>
     </v-data-table>
+    <v-pagination :total-visible="visiblePagination" :length="quizs.count" />
   </div>
 </template>
 <script>
@@ -58,6 +59,7 @@ export default {
   },
   data() {
     return {
+      visiblePagination: 7,
       headers: [
         {
           text: "",
