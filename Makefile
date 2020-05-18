@@ -54,7 +54,7 @@ test: $(PROJECT_NAME)/node_modules
 
 serve: $(PROJECT_NAME)/node_modules
 	echo "Start internal web server"
-	npm run reserve --prefix ./$(PROJECT_NAME)
+	npm run serve --prefix ./$(PROJECT_NAME)
 	
 $(PROJECT_NAME)/node_modules:
 	echo Start command: npm i
