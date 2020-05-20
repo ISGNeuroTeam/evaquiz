@@ -7,7 +7,9 @@
       <router-link to="/directory" class="link-style">Справочник</router-link>
     </v-toolbar-title>
     <v-toolbar-title>
-      <router-link to="/info" class="link-style --last">Информация</router-link>
+      <router-link to="/filleds" class="link-style --last">
+        Информация
+      </router-link>
     </v-toolbar-title>
   </v-app-bar>
 </template>
