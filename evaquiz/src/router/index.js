@@ -13,7 +13,17 @@ export default new Router({
   routes: [
     {
       path: "/quiz",
-      component: QuizPage
+      component: QuizPage,
+      children: [
+        {
+          path: ":offset",
+          children: [
+            {
+              path: ":search"
+            }
+          ]
+        }
+      ]
     },
     {
       path: "/qconstructor",
@@ -30,15 +40,43 @@ export default new Router({
     },
     {
       path: "/directory",
-      component: DirectoryPage
+      component: DirectoryPage,
+      children: [
+        {
+          path: ":offset",
+          children: [
+            {
+              path: ":search"
+            }
+          ]
+        }
+      ]
     },
     {
-      path: "/info",
+      path: "/filleds",
       component: InfoPage,
       children: [
         {
-          path: ":id",
-          component: InfoPage
+          path: ":offset",
+          children: [
+            {
+              path: ":search"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      path: "/filled/:id",
+      component: InfoPage,
+      children: [
+        {
+          path: ":offset",
+          children: [
+            {
+              path: ":search"
+            }
+          ]
         }
       ]
     }
