@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     clickBack() {
-      this.$router.push({ path: "/info/" });
+      this.$router.push({ path: "/filleds/" });
     }
   }
 };

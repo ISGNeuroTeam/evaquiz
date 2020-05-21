@@ -10,9 +10,10 @@ Vue.use(Router);
 
 export default new Router({
   mode: "history",
+  base: "/quiz",
   routes: [
     {
-      path: "/quiz",
+      path: "/list",
       component: QuizPage,
       children: [
         {
@@ -21,7 +22,7 @@ export default new Router({
       ]
     },
     {
-      path: "/quiz/qconstructor",
+      path: "/qconstructor",
       component: QuizConstructorPage,
       children: [
         {
@@ -30,25 +31,20 @@ export default new Router({
       ]
     },
     {
-      path: "/quiz/generator/:id",
+      path: "/generator/:id",
       component: GeneratorPage
     },
     {
-      path: "/quiz/directory",
+      path: "/directory",
       component: DirectoryPage,
       children: [
         {
-          path: ":offset",
-          children: [
-            {
-              path: ":search"
-            }
-          ]
+          path: ":offset/:search"
         }
       ]
     },
     {
-      path: "/quiz/filleds",
+      path: "/filleds",
       component: InfoPage,
       children: [
         {
@@ -62,7 +58,7 @@ export default new Router({
       ]
     },
     {
-      path: "/quiz/filled/:id",
+      path: "/filled/:id",
       component: InfoPage,
       children: [
         {

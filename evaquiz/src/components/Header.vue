@@ -1,15 +1,13 @@
 <template>
   <v-app-bar light app color="primary" class="link-conteiner">
     <v-toolbar-title>
-      <router-link to="/quiz" class="link-style --first">Список </router-link>
+      <router-link to="/list" class="link-style --first">Список </router-link>
     </v-toolbar-title>
     <v-toolbar-title>
-      <router-link to="/quiz/directory" class="link-style"
-        >Справочник</router-link
-      >
+      <router-link to="/directory" class="link-style">Справочник</router-link>
     </v-toolbar-title>
     <v-toolbar-title>
-      <router-link to="/quiz/filleds" class="link-style --last">
+      <router-link to="/filleds" class="link-style --last">
         Информация
       </router-link>
     </v-toolbar-title>

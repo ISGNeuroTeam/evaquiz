@@ -59,7 +59,7 @@ export default {
       getAnswer: "answer/getAnswer"
     }),
     clickRow(value) {
-      this.$router.push({ path: "/info/" + value.quiz_id });
+      this.$router.push({ path: "/filled/" + value.quiz_id });
     },
     formatDate(date) {
       return new Date(date).toLocaleString("ru-RU");
