@@ -16,17 +16,12 @@ export default new Router({
       component: QuizPage,
       children: [
         {
-          path: ":offset",
-          children: [
-            {
-              path: ":search"
-            }
-          ]
+          path: ":offset/:search"
         }
       ]
     },
     {
-      path: "/qconstructor",
+      path: "/quiz/qconstructor",
       component: QuizConstructorPage,
       children: [
         {
@@ -35,11 +30,11 @@ export default new Router({
       ]
     },
     {
-      path: "/generator/:id",
+      path: "/quiz/generator/:id",
       component: GeneratorPage
     },
     {
-      path: "/directory",
+      path: "/quiz/directory",
       component: DirectoryPage,
       children: [
         {
@@ -53,7 +48,7 @@ export default new Router({
       ]
     },
     {
-      path: "/filleds",
+      path: "/quiz/filleds",
       component: InfoPage,
       children: [
         {
@@ -67,7 +62,7 @@ export default new Router({
       ]
     },
     {
-      path: "/filled/:id",
+      path: "/quiz/filled/:id",
       component: InfoPage,
       children: [
         {

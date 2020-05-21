@@ -42,7 +42,11 @@
         <v-icon class="mr-2" @click="clickDelete(item)"> mdi-delete</v-icon>
       </template>
     </v-data-table>
-    <v-pagination :total-visible="visiblePagination" :length="quizs.count" />
+    <v-pagination
+      v-model="activePage"
+      :total-visible="visiblePagination"
+      :length="quizs.count"
+    />
   </div>
 </template>
 <script>
@@ -95,7 +99,14 @@ export default {
   computed: {
     ...mapGetters({
       quizs: "quiz/filterQuizs"
-    })
+    }),
+    activePage() {
+      if (this.$route.params.offset) {
+        return parseInt(this.$route.params.offset, 10) + 1;
+      } else {
+        return 1;
+      }
+    }
   },
   methods: {
     ...mapActions({
