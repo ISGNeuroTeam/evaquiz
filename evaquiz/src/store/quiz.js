@@ -4,7 +4,7 @@ import Common from "./common";
 const quiz = {
   namespaced: true,
   state: {
-    quizs: [],
+    quizs: {},
     quetions: [],
     answers: [],
     filter: null,

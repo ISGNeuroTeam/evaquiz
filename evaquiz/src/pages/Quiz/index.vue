@@ -6,12 +6,17 @@
     />
     <TableView v-if="isTableView" :offset="offset" />
     <BrickView v-else />
-    <v-pagination />
+    <v-pagination
+      v-model="page"
+      :length="countPage"
+      :total-visible="7"
+      @input="changePagination"
+    />
   </v-card>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import QuizHeader from "./components/QuizHeader";
 import TableView from "./components/TableView";
 import BrickView from "./components/BrickView";
@@ -25,10 +30,19 @@ export default {
   },
   data() {
     return {
+      page: 1,
       isTableView: true,
       search: null,
       offset: null
     };
+  },
+  computed: {
+    ...mapState({
+      countQuiz: state => state.quiz.quizs.count
+    }),
+    countPage() {
+      return Math.ceil(this.countQuiz / 10);
+    }
   },
   mounted() {
     this.getQuizs(this.$route.params.offset);
@@ -42,6 +56,9 @@ export default {
     }),
     changeTableView(value) {
       this.isTableView = value;
+    },
+    changePagination(page) {
+      this.getQuizs(page - 1);
     }
   }
 };
