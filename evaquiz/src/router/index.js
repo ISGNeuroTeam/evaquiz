@@ -17,7 +17,12 @@ export default new Router({
       component: QuizPage,
       children: [
         {
-          path: ":offset/:search"
+          path: ":offset",
+          children: [
+            {
+              path: ":search"
+            }
+          ]
         }
       ]
     },
@@ -48,12 +53,7 @@ export default new Router({
       component: InfoPage,
       children: [
         {
-          path: ":offset",
-          children: [
-            {
-              path: ":search"
-            }
-          ]
+          path: ":offset/:search"
         }
       ]
     },
@@ -62,12 +62,7 @@ export default new Router({
       component: InfoPage,
       children: [
         {
-          path: ":offset",
-          children: [
-            {
-              path: ":search"
-            }
-          ]
+          path: ":offset/:search"
         }
       ]
     }

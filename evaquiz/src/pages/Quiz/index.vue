@@ -4,8 +4,9 @@
       :is-table-view="isTableView"
       @changeTableView="changeTableView"
     />
-    <TableView v-if="isTableView" />
+    <TableView v-if="isTableView" :offset="offset" />
     <BrickView v-else />
+    <v-pagination />
   </v-card>
 </template>
 
@@ -24,11 +25,13 @@ export default {
   },
   data() {
     return {
-      isTableView: true
+      isTableView: true,
+      search: null,
+      offset: null
     };
   },
   mounted() {
-    this.getQuizs();
+    this.getQuizs(this.$route.params.offset);
   },
   beforeDestroy() {
     this.$store.commit("quiz/SET_FILTER", null);

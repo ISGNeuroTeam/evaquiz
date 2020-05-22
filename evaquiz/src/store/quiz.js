@@ -94,8 +94,8 @@ const quiz = {
     }
   },
   actions: {
-    getQuizs(context) {
-      return Api.getQuizs().then(data => {
+    getQuizs(context, offset) {
+      return Api.getQuizs(offset ? offset * 10 : 0).then(data => {
         context.commit("SET_QUIZS", data.data);
       });
     },

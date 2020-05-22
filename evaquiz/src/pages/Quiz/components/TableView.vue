@@ -42,11 +42,6 @@
         <v-icon class="mr-2" @click="clickDelete(item)"> mdi-delete</v-icon>
       </template>
     </v-data-table>
-    <v-pagination
-      v-model="activePage"
-      :total-visible="visiblePagination"
-      :length="quizs.count"
-    />
   </div>
 </template>
 <script>
@@ -63,7 +58,6 @@ export default {
   },
   data() {
     return {
-      visiblePagination: 7,
       headers: [
         {
           text: "",
@@ -99,19 +93,13 @@ export default {
   computed: {
     ...mapGetters({
       quizs: "quiz/filterQuizs"
-    }),
-    activePage() {
-      if (this.$route.params.offset) {
-        return parseInt(this.$route.params.offset, 10) + 1;
-      } else {
-        return 1;
-      }
-    }
+    })
   },
   methods: {
     ...mapActions({
       getQuestions: "quiz/getQuestions"
     }),
+
     changeCheckbox(item) {
       if (item.isMulti === true) {
         this.$store.commit("quiz/ADD_MULTICOUNT", item.id);
