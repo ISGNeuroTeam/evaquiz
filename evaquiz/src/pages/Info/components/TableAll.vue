@@ -75,7 +75,7 @@ export default {
     changePagination(page) {
       this.getAnswer({
         id: this.$route.params.id,
-        offset: page
+        offset: page - 1
       });
     }
   }
