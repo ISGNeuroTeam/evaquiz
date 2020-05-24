@@ -44,7 +44,12 @@ export default new Router({
       component: DirectoryPage,
       children: [
         {
-          path: ":offset/:search"
+          path: ":offset",
+          children: [
+            {
+              path: ":search"
+            }
+          ]
         }
       ]
     },

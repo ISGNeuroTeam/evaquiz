@@ -7,7 +7,7 @@ function catalogItemsContent(content) {
 const catalog = {
   namespaced: true,
   state: {
-    catalogs: [],
+    catalogs: {},
     catalog: {}
   },
   mutations: {
@@ -26,9 +26,9 @@ const catalog = {
     }
   },
   actions: {
-    getCatalogs(context) {
-      return Api.getCatalogs().then(data => {
-        context.commit("SET_CATALOGS", data.data.data);
+    getCatalogs(context, offset) {
+      return Api.getCatalogs(offset ? offset * 10 : 0).then(data => {
+        context.commit("SET_CATALOGS", data.data);
       });
     },
     createCatalog(context, catalog) {

@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     ...mapState({
-      catalogs: state => state.catalog.catalogs
+      catalogs: state => state.catalog.catalogs.data
     })
   },
   methods: {

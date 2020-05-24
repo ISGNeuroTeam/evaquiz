@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <div>
     <DirectoryUpdate
       v-if="dialog"
       :dialog="dialog"
@@ -21,7 +21,7 @@
       </v-row>
     </v-card-title>
     <DirectoryTable :search="filter" />
-  </v-card>
+  </div>
 </template>
 <script>
 import DirectoryUpdate from "../modals/DirectoryUpdate";
