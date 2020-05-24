@@ -72,7 +72,7 @@ function answerByID(answers, id) {
 const answer = {
   namespaced: true,
   state: {
-    quizs: {},
+    quizs: null,
     answers: [],
     answerID: null
   },

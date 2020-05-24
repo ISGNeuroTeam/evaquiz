@@ -1,16 +1,24 @@
 <template>
-  <v-data-table
-    multi-sort
-    :headers="headers"
-    hide-default-footer
-    :items="quizs"
-    :items-per-page="50"
-    @click:row="clickRow"
-  >
-    <template v-slot:item.fill_date="{ item }">
-      <p>{{ formatDate(item.fill_date) }}</p>
-    </template>
-  </v-data-table>
+  <div v-if="quizs">
+    <v-data-table
+      multi-sort
+      :headers="headers"
+      hide-default-footer
+      :items="quizs.data"
+      :items-per-page="50"
+      @click:row="clickRow"
+    >
+      <template v-slot:item.fill_date="{ item }">
+        <p>{{ formatDate(item.fill_date) }}</p>
+      </template>
+    </v-data-table>
+    <v-pagination
+      v-model="page"
+      :length="countPage"
+      :total-visible="7"
+      @input="changePagination"
+    />
+  </div>
 </template>
 
 <script>
@@ -20,6 +28,7 @@ export default {
   name: "TableAll",
   data() {
     return {
+      page: 1,
       headers: [
         {
           text: "Название",
@@ -43,8 +52,15 @@ export default {
 
   computed: {
     ...mapState({
-      quizs: state => state.answer.quizs.data
-    })
+      quizs: state => state.answer.quizs
+    }),
+    countPage() {
+      if (this.quizs) {
+        return Math.ceil(this.quizs.count / 10);
+      } else {
+        return 1;
+      }
+    }
   },
   methods: {
     ...mapActions({
@@ -55,6 +71,12 @@ export default {
     },
     formatDate(date) {
       return new Date(date).toLocaleString("ru-RU");
+    },
+    changePagination(page) {
+      this.getAnswer({
+        id: this.$route.params.id,
+        offset: page
+      });
     }
   }
 };

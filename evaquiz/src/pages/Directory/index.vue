@@ -39,7 +39,10 @@ export default {
   methods: {
     ...mapActions({
       getCatalogs: "catalog/getCatalogs"
-    })
+    }),
+    changePagination(page) {
+      this.getCatalogs(page - 1);
+    }
   }
 };
 </script>
