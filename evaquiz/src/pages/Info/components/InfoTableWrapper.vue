@@ -7,10 +7,10 @@
 
       {{ title }}
       <v-spacer />
-      <v-text-field v-model="filter" label="Фильтр" :clearable="true" />
+      <v-text-field label="Фильтр" :clearable="true" />
     </v-card-title>
-    <TableID v-if="id" :search="filter" />
-    <TableAll v-else :search="filter" />
+    <TableID v-if="id" />
+    <TableAll v-else />
   </v-card>
 </template>
 

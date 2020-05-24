@@ -5,7 +5,6 @@
     hide-default-footer
     :items="quizs"
     :items-per-page="50"
-    :search="search"
     @click:row="clickRow"
   >
     <template v-slot:item.fill_date="{ item }">
@@ -19,13 +18,6 @@ import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 export default {
   name: "TableAll",
-  props: {
-    search: {
-      type: String,
-      required: false,
-      default: null
-    }
-  },
   data() {
     return {
       headers: [
