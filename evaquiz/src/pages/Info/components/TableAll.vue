@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 import { mapActions } from "vuex";
 export default {
   name: "TableAll",
@@ -42,8 +42,8 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      quizs: "answer/getQuizsItems"
+    ...mapState({
+      quizs: state => state.answer.quizs.data
     })
   },
   methods: {

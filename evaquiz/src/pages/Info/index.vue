@@ -13,11 +13,17 @@ export default {
   },
   watch: {
     "$route.params.id": function() {
-      this.getAnswer(this.$route.params.id);
+      this.getAnswer({
+        id: this.$route.params.id,
+        offset: this.$route.params.offset
+      });
     }
   },
   mounted() {
-    this.getAnswer(this.$route.params.id);
+    this.getAnswer({
+      id: this.$route.params.id,
+      offset: this.$route.params.offset
+    });
   },
   methods: {
     ...mapActions({

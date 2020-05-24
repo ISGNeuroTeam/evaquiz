@@ -7,7 +7,6 @@
 
       {{ title }}
       <v-spacer />
-      <v-text-field label="Фильтр" :clearable="true" />
     </v-card-title>
     <TableID v-if="id" />
     <TableAll v-else />
@@ -33,11 +32,6 @@ export default {
       default: null
     }
   },
-  data() {
-    return {
-      filter: null
-    };
-  },
   computed: {
     ...mapGetters({
       header: "answer/getAnswersName"
@@ -52,6 +46,7 @@ export default {
   },
   methods: {
     clickBack() {
+      /*очистка стора */
       this.$router.push({ path: "/filleds/" });
     }
   }

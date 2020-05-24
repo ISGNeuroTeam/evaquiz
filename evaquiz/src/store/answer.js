@@ -47,7 +47,6 @@ function headers(answers) {
       value: "filler"
     }
   ];
-
   answers[0].questions.forEach(q => {
     if (q.is_sign) {
       _headers.push({
@@ -56,34 +55,11 @@ function headers(answers) {
       });
     }
   });
-
   _headers.push({
     text: "",
     value: "actions"
   });
   return _headers;
-}
-
-function quizItems(quizs) {
-  let _array = [];
-  quizs.forEach(q => {
-    _array.push({
-      name: q.name,
-      quiz_id: q.quiz_id
-    });
-  });
-
-  let _uniq = [...new Set(_array.map(o => JSON.stringify(o)))].map(s =>
-    JSON.parse(s)
-  );
-
-  _uniq.forEach(u => {
-    const _index = quizs.reverse().findIndex(q => q.quiz_id === u.quiz_id);
-    u.fill_date = quizs[_index].fill_date;
-    u.filler = quizs[_index].filler;
-  });
-
-  return _uniq;
 }
 
 function answerByID(answers, id) {
@@ -96,7 +72,7 @@ function answerByID(answers, id) {
 const answer = {
   namespaced: true,
   state: {
-    quizs: [],
+    quizs: {},
     answers: [],
     answerID: null
   },
@@ -127,9 +103,6 @@ const answer = {
         return headers(state.answers);
       }
     },
-    getQuizsItems(state) {
-      return quizItems(state.quizs);
-    },
     getAllAnswerByID(state) {
       if (state.answers.length && state.answerID) {
         return answerByID(state.answers, state.answerID);
@@ -137,15 +110,20 @@ const answer = {
     }
   },
   actions: {
-    getAnswer(context, quizID) {
-      if (quizID) {
-        return Api.getAnswer(quizID).then(data => {
+    getAnswer(context, param) {
+      if (param.id) {
+        return Api.getAnswer(
+          param.id,
+          param.offset ? param.offset * 10 : 0
+        ).then(data => {
           context.commit("SET_ANSWERS", data.data.data);
         });
       } else {
-        return Api.getAnswerAll().then(data => {
-          context.commit("SET_QUIZS", data.data.data);
-        });
+        return Api.getAnswerAll(param.offset ? param.offset * 10 : 0).then(
+          data => {
+            context.commit("SET_QUIZS", data.data);
+          }
+        );
       }
     },
 

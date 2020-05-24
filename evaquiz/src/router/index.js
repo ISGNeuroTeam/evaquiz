@@ -58,7 +58,12 @@ export default new Router({
       component: InfoPage,
       children: [
         {
-          path: ":offset/:search"
+          path: ":offset",
+          children: [
+            {
+              path: ":search"
+            }
+          ]
         }
       ]
     },
@@ -67,7 +72,12 @@ export default new Router({
       component: InfoPage,
       children: [
         {
-          path: ":offset/:search"
+          path: ":offset",
+          children: [
+            {
+              path: ":search"
+            }
+          ]
         }
       ]
     }
