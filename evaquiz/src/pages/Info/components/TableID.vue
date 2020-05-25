@@ -19,12 +19,17 @@
         </v-icon>
       </template>
     </v-data-table>
-    <v-pagination v-model="page" :total-visible="7" />
+    <v-pagination
+      v-model="page"
+      :length="countPage"
+      :total-visible="7"
+      @input="changePagination"
+    />
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 import DialogFullAnswer from "../modals/DialogFullAnswer";
 
 export default {
@@ -43,9 +48,22 @@ export default {
     ...mapGetters({
       headers: "answer/getAnswersHeaders",
       items: "answer/getAnswersItems"
-    })
+    }),
+    ...mapState({
+      answersCount: state => state.answer.answers.count
+    }),
+    countPage() {
+      if (this.answersCount) {
+        return Math.ceil(this.answersCount / 10);
+      } else {
+        return 1;
+      }
+    }
   },
   methods: {
+    ...mapActions({
+      getAnswer: "answer/getAnswer"
+    }),
     clickRow(value) {
       this.fillDate = value.fill_date;
       this.$store.commit("answer/SET_ANSWER_ID", value.id);
@@ -53,6 +71,12 @@ export default {
     },
     closeDialog() {
       this.dialog = false;
+    },
+    changePagination(page) {
+      this.getAnswer({
+        id: this.$route.params.id,
+        offset: page - 1
+      });
     }
   }
 };
