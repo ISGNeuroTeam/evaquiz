@@ -44,7 +44,7 @@ const quiz = {
     ADD_MULTICOUNT(state, payload) {
       state.multi.count++;
       state.multi.array.push(payload);
-      state.quizs.forEach(quiz => {
+      state.quizs.data.forEach(quiz => {
         if (quiz.id === payload) {
           quiz.multi = state.multi.count;
         }
@@ -55,7 +55,7 @@ const quiz = {
       state.multi.array.splice(payload.id, 1);
       const _index = state.multi.array.indexOf(payload.id);
       if (_index > -1) {
-        state.multi.array.splice(_index, 1);
+        state.multi.array.data.splice(_index, 1);
       }
 
       state.quizs.forEach(quiz => {

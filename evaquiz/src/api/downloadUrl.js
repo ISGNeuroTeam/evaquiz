@@ -2,6 +2,7 @@ import axios from "axios";
 
 export default () => {
   return axios.create({
+    baseURL: window.location.origin,
     withCredentials: true,
     responseType: "blob",
     headers: {
