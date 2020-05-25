@@ -134,6 +134,14 @@ const quiz = {
       return Api.exportQuetions(context.state.multi.array).then(data => {
         let _file = Common.getNameAndFormat(data.data);
         _file = Common.getNameAndFormat(_file.name);
+        //очищаем мульти
+        context.state.multi.count = 0;
+        context.state.multi.array = [];
+        context.state.quizs.data.forEach(q => {
+          q.multi = null;
+          q.isMulti = false;
+        });
+
         Api.downloadFromUrl(data.data).then(response => {
           Common.download({ name: _file.name, format: "eva.quiz" }, response);
         });
