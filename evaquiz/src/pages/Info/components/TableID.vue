@@ -19,6 +19,7 @@
         </v-icon>
       </template>
     </v-data-table>
+    <v-pagination v-model="page" :total-visible="7" />
   </div>
 </template>
 
@@ -33,6 +34,7 @@ export default {
   },
   data() {
     return {
+      page: 1,
       dialog: false,
       fillDate: null
     };

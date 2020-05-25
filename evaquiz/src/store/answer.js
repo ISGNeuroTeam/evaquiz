@@ -73,7 +73,7 @@ const answer = {
   namespaced: true,
   state: {
     quizs: null,
-    answers: [],
+    answers: null,
     answerID: null
   },
   mutations: {
@@ -89,23 +89,23 @@ const answer = {
   },
   getters: {
     getAnswersName(state) {
-      if (state.answers.length) {
-        return state.answers[0].name.trim();
+      if (state.answers) {
+        return state.answers.data[0].name.trim();
       }
     },
     getAnswersItems(state) {
-      if (state.answers.length) {
-        return items(state.answers);
+      if (state.answers) {
+        return items(state.answers.data);
       }
     },
     getAnswersHeaders(state) {
-      if (state.answers.length) {
-        return headers(state.answers);
+      if (state.answers) {
+        return headers(state.answers.data);
       }
     },
     getAllAnswerByID(state) {
-      if (state.answers.length && state.answerID) {
-        return answerByID(state.answers, state.answerID);
+      if (state.answers && state.answerID) {
+        return answerByID(state.answers.data, state.answerID);
       }
     }
   },
@@ -116,7 +116,7 @@ const answer = {
           param.id,
           param.offset ? param.offset * 10 : 0
         ).then(data => {
-          context.commit("SET_ANSWERS", data.data.data);
+          context.commit("SET_ANSWERS", data.data);
         });
       } else {
         return Api.getAnswerAll(param.offset ? param.offset * 10 : 0).then(
