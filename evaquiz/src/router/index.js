@@ -1,10 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import QuizPage from "@/pages/Quiz";
-import InfoPage from "@/pages/Info";
-import QuizConstructorPage from "@/pages/QuizConstructor";
-import DirectoryPage from "@/pages/Directory";
-import GeneratorPage from "@/pages/Generator";
 
 Vue.use(Router);
 
@@ -14,7 +9,7 @@ export default new Router({
   routes: [
     {
       path: "/list",
-      component: QuizPage,
+      component: () => import("@/pages/Quiz"),
       children: [
         {
           path: ":offset",
@@ -28,7 +23,7 @@ export default new Router({
     },
     {
       path: "/qconstructor",
-      component: QuizConstructorPage,
+      component: () => import("@/pages/QuizConstructor"),
       children: [
         {
           path: ":type"
@@ -37,11 +32,11 @@ export default new Router({
     },
     {
       path: "/generator/:id",
-      component: GeneratorPage
+      component: () => import("@/pages/Generator")
     },
     {
       path: "/directory",
-      component: DirectoryPage,
+      component: () => import("@/pages/Directory"),
       children: [
         {
           path: ":offset",
@@ -55,7 +50,7 @@ export default new Router({
     },
     {
       path: "/filleds",
-      component: InfoPage,
+      component: () => import("@/pages/Info"),
       children: [
         {
           path: ":offset",
@@ -69,7 +64,7 @@ export default new Router({
     },
     {
       path: "/filled/:id",
-      component: InfoPage,
+      component: () => import("@/pages/Info"),
       children: [
         {
           path: ":offset",
