@@ -50,11 +50,11 @@ export default {
       items: "answer/getAnswersItems"
     }),
     ...mapState({
-      answersCount: state => state.answer.answers.count
+      answers: state => state.answer.answers
     }),
     countPage() {
       if (this.answersCount) {
-        return Math.ceil(this.answersCount / 10);
+        return Math.ceil(this.answersCount.count / 10);
       } else {
         return 1;
       }
