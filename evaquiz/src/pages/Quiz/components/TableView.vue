@@ -101,6 +101,7 @@ export default {
     }),
 
     changeCheckbox(item) {
+      console.log(item);
       if (item.isMulti === true) {
         this.$store.commit("quiz/ADD_MULTICOUNT", item.id);
       }
