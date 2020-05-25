@@ -41,7 +41,11 @@ export default {
       countQuiz: state => state.quiz.quizs.count
     }),
     countPage() {
-      return Math.ceil(this.countQuiz / 10);
+      if (this.countQuiz) {
+        return Math.ceil(this.countQuiz / 10);
+      } else {
+        return 1;
+      }
     }
   },
   mounted() {

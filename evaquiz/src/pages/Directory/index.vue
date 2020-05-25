@@ -30,7 +30,11 @@ export default {
       countDirectory: state => state.catalog.catalogs.count
     }),
     countPage() {
-      return Math.ceil(this.countDirectory / 10);
+      if (this.countDirectory) {
+        return Math.ceil(this.countDirectory / 10);
+      } else {
+        return 1;
+      }
     }
   },
   mounted() {
