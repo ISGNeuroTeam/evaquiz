@@ -53,8 +53,8 @@ export default {
       answers: state => state.answer.answers
     }),
     countPage() {
-      if (this.answersCount) {
-        return Math.ceil(this.answersCount.count / 10);
+      if (this.answers) {
+        return Math.ceil(this.answers.count / 10);
       } else {
         return 1;
       }
