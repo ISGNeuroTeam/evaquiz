@@ -10,6 +10,7 @@ export default new Router({
     {
       path: "/list",
       component: () => import("@/pages/Quiz"),
+      name: "LIST",
       children: [
         {
           path: ":offset",
@@ -24,6 +25,7 @@ export default new Router({
     {
       path: "/qconstructor",
       component: () => import("@/pages/QuizConstructor"),
+      name: "CONSTRUCTOR",
       children: [
         {
           path: ":type"
@@ -32,10 +34,12 @@ export default new Router({
     },
     {
       path: "/generator/:id",
+      name: "GENERATOR",
       component: () => import("@/pages/Generator")
     },
     {
       path: "/directory",
+      name: "DIRECTORY",
       component: () => import("@/pages/Directory"),
       children: [
         {
@@ -50,6 +54,7 @@ export default new Router({
     },
     {
       path: "/filleds",
+      name: "FILLEDS",
       component: () => import("@/pages/Info"),
       children: [
         {
@@ -64,6 +69,7 @@ export default new Router({
     },
     {
       path: "/filled/:id",
+      name: "FILLED",
       component: () => import("@/pages/Info"),
       children: [
         {

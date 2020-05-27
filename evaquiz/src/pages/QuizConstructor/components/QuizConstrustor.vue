@@ -11,10 +11,10 @@
         <v-col cols="5">
           <v-textarea
             v-model="element.name"
+            :clearable="true"
             spellcheck="false"
             label="Название чек-листа"
             :auto-grow="true"
-            :clearable="true"
             :rows="1"
           />
         </v-col>

@@ -49,6 +49,11 @@ export default {
     }
   },
   mounted() {
+    if (this.$route.params.offset) {
+      this.page = this.$route.params.offset + 1;
+    } else {
+      this.page = 1;
+    }
     this.getQuizs(this.$route.params.offset);
   },
   beforeDestroy() {
