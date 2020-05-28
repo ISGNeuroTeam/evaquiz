@@ -50,7 +50,7 @@ export default {
   },
   mounted() {
     if (this.$route.params.offset) {
-      this.page = this.$route.params.offset + 1;
+      this.page = Number(this.$route.params.offset) + 1;
     } else {
       this.page = 1;
     }
@@ -68,6 +68,10 @@ export default {
     },
     changePagination(page) {
       this.getQuizs(page - 1);
+
+      this.$router.replace({
+        path: `/list/${page - 1}`
+      });
     }
   }
 };

@@ -38,6 +38,11 @@ export default {
     }
   },
   mounted() {
+    if (this.$route.params.offset) {
+      this.page = Number(this.$route.params.offset) + 1;
+    } else {
+      this.page = 1;
+    }
     this.getCatalogs(this.$route.params.offset);
   },
   methods: {
@@ -46,6 +51,10 @@ export default {
     }),
     changePagination(page) {
       this.getCatalogs(page - 1);
+
+      this.$router.replace({
+        path: `/directory/${page - 1}`
+      });
     }
   }
 };
