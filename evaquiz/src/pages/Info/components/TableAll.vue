@@ -62,6 +62,13 @@ export default {
       }
     }
   },
+  mounted() {
+    if (this.$route.params.offset) {
+      this.page = Number(this.$route.params.offset) + 1;
+    } else {
+      this.page = 1;
+    }
+  },
   methods: {
     ...mapActions({
       getAnswer: "answer/getAnswer"
@@ -76,6 +83,10 @@ export default {
       this.getAnswer({
         id: this.$route.params.id,
         offset: page - 1
+      });
+
+      this.$router.replace({
+        path: `/filleds/${page - 1}`
       });
     }
   }
