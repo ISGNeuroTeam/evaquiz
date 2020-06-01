@@ -54,7 +54,15 @@ export default {
     } else {
       this.page = 1;
     }
-    this.getQuizs(this.$route.params.offset);
+    if (this.$route.params.search) {
+      this.search = this.$route.params.search;
+    } else {
+      this.search = null;
+    }
+    this.getQuizs({
+      offset: this.$route.params.offset,
+      search: this.$route.params.search
+    });
   },
   beforeDestroy() {
     this.$store.commit("quiz/SET_FILTER", null);
@@ -70,7 +78,9 @@ export default {
       this.getQuizs(page - 1);
 
       this.$router.replace({
-        path: `/list/${page - 1}`
+        path: `/list/${page - 1}${
+          this.$route.params.search ? +"/" + this.$route.params.search : null
+        }`
       });
     }
   }

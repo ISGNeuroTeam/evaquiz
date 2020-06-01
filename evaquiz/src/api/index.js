@@ -3,9 +3,13 @@ import downloadUrl from "./downloadUrl.js";
 import uploadFile from "./uploadFile.js";
 
 export default {
-  getQuizs(offset = 0) {
+  getQuizs(offset = 0, search = null) {
     //получить все квизы
-    return baseUrl().get(`/qapi/quizs?limit=10&offset=${offset}`);
+    return baseUrl().get(
+      `/qapi/quizs?limit=10&offset=${offset}${
+        search ? "&search=" + search : ""
+      }`
+    );
   },
   getQuestions(multi) {
     return baseUrl().get(`/qapi/quiz/questions?ids=${multi}`);

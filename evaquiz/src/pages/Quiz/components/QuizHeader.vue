@@ -73,8 +73,8 @@ export default {
     changeFilter() {
       if (this.timeout) clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {
-        this.$store.commit("quiz/SET_FILTER", this.filter);
-      }, 1000);
+        //
+      }, 300);
     },
     changeView(value) {
       this.$emit("changeTableView", !value);
