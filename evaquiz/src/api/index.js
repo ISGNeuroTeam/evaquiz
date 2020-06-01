@@ -30,12 +30,16 @@ export default {
     //редактировать
     return baseUrl().put("/qapi/quiz/edit", quiz);
   },
-  getAnswer(quizID, offset = 0) {
+  getAnswer(quizID, offset = 0, search = null) {
     return baseUrl().get(`/qapi/quiz/filled?id=${quizID}
-&limit=10&offset=${offset}`);
+&limit=10&offset=${offset}${search ? "&search=" + search : ""}`);
   },
-  getAnswerAll(offset = 0) {
-    return baseUrl().get(`/qapi/quiz/filled?limit=10&offset=${offset}`);
+  getAnswerAll(offset = 0, search = null) {
+    return baseUrl().get(
+      `/qapi/quiz/filled?limit=10&offset=${offset}${
+        search ? "&search=" + search : ""
+      }`
+    );
   },
   getUrlExel(answerID) {
     return baseUrl().get(`/qapi/quiz/filled/export?id=${answerID}`);
@@ -49,8 +53,12 @@ export default {
   importQuetions(file) {
     return uploadFile().post("/qapi/quiz/import", file);
   },
-  getCatalogs(offset = 0) {
-    return baseUrl().get(`/qapi/catalogs?limit=10&offset=${offset}`);
+  getCatalogs(offset = 0, search = null) {
+    return baseUrl().get(
+      `/qapi/catalogs?limit=10&offset=${offset}${
+        search ? "&search=" + search : ""
+      }`
+    );
   },
   createCatalog(catalog) {
     return baseUrl().post("/qapi/catalog/create", catalog);
