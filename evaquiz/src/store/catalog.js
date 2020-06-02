@@ -26,8 +26,11 @@ const catalog = {
     }
   },
   actions: {
-    getCatalogs(context, offset) {
-      return Api.getCatalogs(offset ? offset * 10 : 0).then(data => {
+    getCatalogs(context, params) {
+      return Api.getCatalogs(
+        params.offset ? params.offset * 10 : 0,
+        params.search ? params.search : ""
+      ).then(data => {
         context.commit("SET_CATALOGS", data.data);
       });
     },

@@ -43,7 +43,15 @@ export default {
     } else {
       this.page = 1;
     }
-    this.getCatalogs(this.$route.params.offset);
+    if (this.$route.params.search) {
+      this.search = this.$route.params.search;
+    } else {
+      this.search = null;
+    }
+    this.getCatalogs({
+      offset: this.$route.params.offset,
+      search: this.$route.params.search
+    });
   },
   methods: {
     ...mapActions({
