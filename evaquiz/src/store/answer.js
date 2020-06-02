@@ -110,20 +110,22 @@ const answer = {
     }
   },
   actions: {
-    getAnswer(context, param) {
-      if (param.id) {
+    getAnswer(context, params) {
+      if (params.id) {
         return Api.getAnswer(
-          param.id,
-          param.offset ? param.offset * 10 : 0
+          params.id,
+          params.offset ? params.offset * 10 : 0,
+          params.search ? params.search : ""
         ).then(data => {
           context.commit("SET_ANSWERS", data.data);
         });
       } else {
-        return Api.getAnswerAll(param.offset ? param.offset * 10 : 0).then(
-          data => {
-            context.commit("SET_QUIZS", data.data);
-          }
-        );
+        return Api.getAnswerAll(
+          params.offset ? params.offset * 10 : 0,
+          params.search ? params.search : ""
+        ).then(data => {
+          context.commit("SET_QUIZS", data.data);
+        });
       }
     },
 

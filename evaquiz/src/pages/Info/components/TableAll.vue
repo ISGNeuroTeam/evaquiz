@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       page: 1,
+      search: null,
       headers: [
         {
           text: "Название",
@@ -67,6 +68,11 @@ export default {
       this.page = Number(this.$route.params.offset) + 1;
     } else {
       this.page = 1;
+    }
+    if (this.$route.params.search) {
+      this.search = this.$route.params.search;
+    } else {
+      this.search = null;
     }
   },
   methods: {

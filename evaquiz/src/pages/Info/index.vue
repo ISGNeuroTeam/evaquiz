@@ -15,14 +15,16 @@ export default {
     "$route.params.id": function() {
       this.getAnswer({
         id: this.$route.params.id,
-        offset: this.$route.params.offset
+        offset: this.$route.params.offset,
+        search: this.$route.params.search
       });
     }
   },
   mounted() {
     this.getAnswer({
       id: this.$route.params.id,
-      offset: this.$route.params.offset
+      offset: this.$route.params.offset,
+      search: this.$route.params.search
     });
   },
   methods: {
