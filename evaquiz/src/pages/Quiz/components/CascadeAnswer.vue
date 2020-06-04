@@ -25,7 +25,11 @@
     </v-row>
     <v-row v-if="selectValue && selectValue.type === 'cascade'" align="center">
       <v-col cols="12">
-        <CascadeAnswer :childs="selectValue.childs" @end-cascade="endCascade" />
+        <CascadeAnswer
+          :childs="selectValue.childs"
+          :prev-text="selectText"
+          @end-cascade="endCascade"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -38,24 +42,34 @@ export default {
     childs: {
       type: Array,
       required: true
+    },
+    prevText: {
+      type: String,
+      required: false,
+      default: ""
     }
   },
   data() {
     return {
       selectValue: null,
-      timeout: null
+      timeout: null,
+      selectText: ""
     };
   },
   methods: {
     changeValue() {
-      if (this.selectValue.type === "select") {
-        this.$emit("end-cascade", this.selectValue.text);
+      if (this.selectValue.type !== "text") {
+        this.selectText = this.prevText
+          ? this.prevText + "-->" + this.selectValue.text
+          : this.selectValue.text;
+        this.$emit("end-cascade", this.selectText);
       }
     },
     inputValue(val) {
       if (this.timeout) clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {
-        this.$emit("end-cascade", val);
+        this.selectText = this.prevText ? this.prevText + "-->" + val : val;
+        this.$emit("end-cascade", this.selectText);
       }, 1000);
     },
     endCascade(val) {
