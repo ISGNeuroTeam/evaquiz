@@ -36,8 +36,9 @@ export default {
       catalogUnit: null,
       catalogObject: null,
       catalogFam: null,
-      count: 0,
-      disabled: false
+      count: 1,
+      disabled: false,
+      selectText: null
     };
   },
   computed: {
@@ -69,14 +70,27 @@ export default {
     guestionAnswer(question) {
       if (question.type === "cascade") {
         let _rand = this.getRandomInt(0, question.childs.length - 1);
+
+        if (
+          question.childs[_rand].type !== "text" &&
+          question.childs[_rand].type !== "select"
+        ) {
+          this.selectText = question.childs[_rand].text;
+        }
         return this.guestionAnswer(question.childs[_rand]);
       }
       if (question.type === "select") {
-        return { value: question.text, description: null };
+        return {
+          value: this.selectText + "-->" + question.text,
+          description: null
+        };
       }
       if (question.type === "text") {
         let _rand = this.getRandomInt(0, this.randomTextCascade.length - 1);
-        return { value: this.randomTextCascade[_rand], description: null };
+        return {
+          value: this.selectText + "-->" + this.randomTextCascade[_rand],
+          description: null
+        };
       }
       if (question.type === "catalog" && question.catalog_id === 7) {
         let _rand = this.getRandomInt(0, this.catalogFam.length - 1);
