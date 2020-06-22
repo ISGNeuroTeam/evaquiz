@@ -70,6 +70,9 @@ export default {
       if (answer.type === "date") {
         return new Date(answer.answer.value).toLocaleDateString("ru-RU");
       }
+      if (answer.type === "cascade") {
+        return answer.answer.value.replace("-->", ", ");
+      }
       if (answer.type === "multi") {
         if (answer.answer.value.toLowerCase() === "yes") {
           return "Да";
