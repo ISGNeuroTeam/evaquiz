@@ -37,7 +37,10 @@ export default {
     del() {
       this.deleteQuiz(this.quiz.id)
         .then(() => {
-          this.getQuizs();
+          this.getQuizs({
+            offset: this.$route.params.offset,
+            search: this.$route.params.search
+          });
 
           this.$store.commit("snack/SET_SNACK", {
             color: "green",
