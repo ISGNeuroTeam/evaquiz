@@ -135,7 +135,7 @@ export default {
   },
   computed: {
     ...mapState({
-      catalogsItems: state => state.catalog.catalogs
+      catalogsItems: state => state.catalog.catalogs.data
     }),
     isDisabled() {
       if (this.question.text) {

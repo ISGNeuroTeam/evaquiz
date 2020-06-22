@@ -107,7 +107,7 @@ export default {
     }),
     openDialog() {
       this.dialog = true;
-      this.getCatalogs();
+      this.getCatalogs({});
     },
     closeDialog() {
       this.dialog = false;
