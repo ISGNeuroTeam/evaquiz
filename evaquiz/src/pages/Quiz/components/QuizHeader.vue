@@ -20,16 +20,8 @@
         @change="fileChange"
       />
     </v-col>
-    <v-col cols="3" offset="5">
-      <v-text-field
-        v-model="filter"
-        class="qh_text_field"
-        label="Фильтр"
-        :clearable="true"
-        @input="changeFilter"
-      />
-    </v-col>
-    <v-col cols="1" class="qh_button  text-right pr-8">
+
+    <v-col offset="9" cols="1" class="qh_button  text-right pr-8">
       <v-btn color="primary" @click="create">
         <v-icon>mdi-plus-circle-outline</v-icon>
       </v-btn>
@@ -69,12 +61,6 @@ export default {
       this.$router.push({
         path: "/qconstructor/create"
       });
-    },
-    changeFilter() {
-      if (this.timeout) clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        //
-      }, 300);
     },
     changeView(value) {
       this.$emit("changeTableView", !value);

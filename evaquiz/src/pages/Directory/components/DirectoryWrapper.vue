@@ -10,10 +10,8 @@
         <v-col cols="3">
           Справочники
         </v-col>
-        <v-col cols="4" offset="4">
-          <v-text-field v-model="filter" label="Фильтр" :clearable="true" />
-        </v-col>
-        <v-col cols="1">
+
+        <v-col offset="8" cols="1">
           <v-btn dark color="primary" @click="openDialog">
             <v-icon>mdi-plus-circle-outline</v-icon>
           </v-btn>
