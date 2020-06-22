@@ -110,7 +110,10 @@ export default {
     create() {
       this.createCatalog(this.element)
         .then(() => {
-          this.getCatalogs();
+          this.getCatalogs({
+            offset: this.$route.params.offset,
+            search: this.$route.params.search
+          });
 
           this.$store.commit("snack/SET_SNACK", {
             color: "green",
@@ -129,7 +132,10 @@ export default {
     edit() {
       this.editCatalog(this.element)
         .then(() => {
-          this.getCatalogs();
+          this.getCatalogs({
+            offset: this.$route.params.offset,
+            search: this.$route.params.search
+          });
 
           this.$store.commit("snack/SET_SNACK", {
             color: "green",

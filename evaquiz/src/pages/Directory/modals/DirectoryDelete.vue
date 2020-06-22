@@ -37,7 +37,10 @@ export default {
     action() {
       this.deleteCatalog(this.catalog.id)
         .then(() => {
-          this.getCatalogs();
+          this.getCatalogs({
+            offset: this.$route.params.offset,
+            search: this.$route.params.search
+          });
 
           this.$store.commit("snack/SET_SNACK", {
             color: "green",
