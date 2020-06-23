@@ -156,7 +156,7 @@ export default {
             message: "Успешно изменили " + this.element.name
           });
 
-          this.$router.push({ path: "/quiz/" });
+          this.$router.push({ path: "/list/" });
         })
         .catch(() => {
           this.$store.commit("snack/SET_SNACK", {
