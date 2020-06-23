@@ -119,6 +119,7 @@ export default {
     },
     onEdit(question) {
       this.editQuestion = question;
+      this.getCatalogs({});
     },
     editClose() {
       this.editQuestion = null;
