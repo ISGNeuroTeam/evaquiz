@@ -96,7 +96,10 @@ export default {
     request() {
       this.createQuiz(this.quiz)
         .then(() => {
-          this.getQuizs();
+          this.getQuizs({
+            offset: this.$route.params.offset,
+            search: this.$route.params.search
+          });
 
           this.$store.commit("snack/SET_SNACK", {
             color: "green",

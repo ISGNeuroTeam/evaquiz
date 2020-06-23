@@ -164,7 +164,7 @@ export default {
       catalogsItems: state => state.catalog.catalogs.data
     }),
     selectDisabled() {
-      if (this.question.childs.length > 0) {
+      if (this.question.childs) {
         return true;
       } else {
         return false;
