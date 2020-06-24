@@ -12,7 +12,8 @@ const quiz = {
       count: 0,
       array: []
     },
-    constructorCount: 0
+    constructorCount: 0,
+    editAll: false
   },
   mutations: {
     SET_QUIZS(state, payload) {
@@ -24,7 +25,12 @@ const quiz = {
       state.multi.array = [];
     },
     SET_QUETIONS(state, payload) {
-      state.quetions = payload;
+      state.quetions = payload[0];
+      if (Number(payload[1]) === Number(0)) {
+        state.editAll = true;
+      } else {
+        state.editAll = false;
+      }
     },
     SET_QUETIONS_MULTI(state, payload) {
       payload.forEach(p => {
@@ -112,9 +118,14 @@ const quiz = {
     },
 
     getQuestions(context, quiz) {
-      return Api.getQuestions(quiz.id).then(data => {
-        context.commit("SET_QUETIONS", data.data.data);
-      });
+      Promise.all([Api.getQuestions(quiz.id), Api.getAnswer(quiz.id)]).then(
+        data => {
+          context.commit("SET_QUETIONS", [
+            data[0].data.data,
+            data[1].data.count
+          ]);
+        }
+      );
     },
 
     deleteQuiz(context, quizID) {
