@@ -13,7 +13,7 @@ const quiz = {
       array: []
     },
     constructorCount: 0,
-    editAll: false
+    editAll: true
   },
   mutations: {
     SET_QUIZS(state, payload) {
@@ -27,9 +27,9 @@ const quiz = {
     SET_QUETIONS(state, payload) {
       state.quetions = payload[0];
       if (Number(payload[1]) === Number(0)) {
-        state.editAll = true;
-      } else {
         state.editAll = false;
+      } else {
+        state.editAll = true;
       }
     },
     SET_QUETIONS_MULTI(state, payload) {

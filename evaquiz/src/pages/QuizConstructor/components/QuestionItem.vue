@@ -1,5 +1,5 @@
 <template>
-  <draggable tag="ul" :list="questions" :animation="200">
+  <draggable tag="ul" :list="questions" :animation="200" :disabled="editAll">
     <li
       v-for="question in questions"
       :key="question.sid"
@@ -65,7 +65,8 @@ export default {
   },
   computed: {
     ...mapState({
-      sid: state => state.quiz.constructorCount
+      sid: state => state.quiz.constructorCount,
+      editAll: state => state.quiz.editAll
     })
   },
   methods: {
