@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     ...mapState({
-      constructorQuiz: state => state.quiz.quetions[0]
+      constructorQuiz: state => state.quiz.quetions
     })
   },
 
@@ -29,10 +29,12 @@ export default {
         return "Создание нового чек-листа";
       }
       if (this.type.toLowerCase() === "edit" && this.constructorQuiz) {
-        return 'Редактирование чек-листа "' + this.constructorQuiz.name + '"';
+        return (
+          'Редактирование чек-листа "' + this.constructorQuiz[0].name + '"'
+        );
       }
       if (this.type.toLowerCase() === "copy" && this.constructorQuiz) {
-        return 'Копирование чек-листа "' + this.constructorQuiz.name + '"';
+        return 'Копирование чек-листа "' + this.constructorQuiz[0].name + '"';
       }
     }
   }

@@ -82,11 +82,11 @@ export default {
   computed: {
     ...mapState({
       sid: state => state.quiz.constructorCount,
-      constructorQuiz: state => state.quiz.quetions[0]
+      constructorQuiz: state => state.quiz.quetions
     }),
     element() {
       if (this.constructorQuiz) {
-        return this.constructorQuiz;
+        return this.constructorQuiz[0];
       } else {
         return this.quiz;
       }
