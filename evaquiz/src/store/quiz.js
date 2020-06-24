@@ -146,7 +146,10 @@ const quiz = {
         });
 
         Api.downloadFromUrl(data.data).then(response => {
-          Common.download({ name: _file.name, format: "eva.quiz" }, response);
+          Common.download(
+            { name: _file.name.split("/")[1], format: "eva.quiz" },
+            response
+          );
         });
       });
     },
