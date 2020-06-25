@@ -92,15 +92,15 @@ export default {
           description: null
         };
       }
-      if (question.type === "catalog" && question.catalog_id === 7) {
+      if (question.type === "catalog" && question.catalog_id === 1) {
         let _rand = this.getRandomInt(0, this.catalogFam.length - 1);
         return { value: this.catalogFam[_rand], description: null };
       }
-      if (question.type === "catalog" && question.catalog_id === 8) {
+      if (question.type === "catalog" && question.catalog_id === 2) {
         let _rand = this.getRandomInt(0, this.catalogUnit.length - 1);
         return { value: this.catalogUnit[_rand], description: null };
       }
-      if (question.type === "catalog" && question.catalog_id === 9) {
+      if (question.type === "catalog" && question.catalog_id === 3) {
         let _rand = this.getRandomInt(0, this.catalogObject.length - 1);
         return { value: this.catalogObject[_rand], description: null };
       }
@@ -126,13 +126,13 @@ export default {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     },
     getCatalogs() {
-      Api.getCatalog(7).then(data => {
+      Api.getCatalog(1).then(data => {
         this.catalogFam = data.data.data.content.split("\n");
       });
-      Api.getCatalog(8).then(data => {
+      Api.getCatalog(2).then(data => {
         this.catalogUnit = data.data.data.content.split("\n");
       });
-      Api.getCatalog(9).then(data => {
+      Api.getCatalog(3).then(data => {
         this.catalogObject = data.data.data.content.split("\n");
       });
     }
