@@ -6,8 +6,8 @@
       :style="{ backgroundColor: getColor(question.type) }"
     >
       <v-row class="qi_row">
-        <v-btn v-if="!editAll" icon @click="clickDelete(question)">
-          <v-icon> mdi-delete</v-icon>
+        <v-btn icon @click="clickDelete(question)">
+          <v-icon v-if="!editAll"> mdi-delete</v-icon>
         </v-btn>
 
         <div class="qi_text_container" @click="clickEdit(question)">

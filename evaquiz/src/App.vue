@@ -7,6 +7,7 @@
         <router-view />
       </v-container>
     </v-content>
+    <div class="version">0.1.1</div>
   </v-app>
 </template>
 
@@ -24,5 +25,9 @@ export default {
 <style>
 * {
   font-family: "Roboto", sans-serif;
+}
+.version {
+  color: white;
+  text-align: right;
 }
 </style>
