@@ -34,6 +34,7 @@
         <v-col cols="6" class="ma-0 pa-0 qc_list">
           <QuestionItem
             :questions="element.questions"
+            :type="type"
             @edit-question="onEdit"
           />
         </v-col>
