@@ -6,7 +6,7 @@
       @close-dialog="closeDialog"
       @add-question="addQuestion"
     />
-    <v-card-text :key="element.name">
+    <v-card-text>
       <v-row align="center">
         <v-col cols="5">
           <v-textarea
