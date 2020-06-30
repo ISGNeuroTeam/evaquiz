@@ -7,8 +7,12 @@
     >
       <v-row class="qi_row">
         <div>
-          <v-btn v-if="!isEdit" icon @click="clickDelete(question)">
-            <v-icon> mdi-delete</v-icon>
+          <v-btn
+            v-if="question.type === 'cascade'"
+            icon
+            @click="clickAdd(question)"
+          >
+            <v-icon> mdi-plus</v-icon>
           </v-btn>
         </div>
 
@@ -19,13 +23,11 @@
           </div>
         </div>
 
-        <v-btn
-          v-if="question.type === 'cascade'"
-          icon
-          @click="clickAdd(question)"
-        >
-          <v-icon> mdi-plus</v-icon>
-        </v-btn>
+        <div>
+          <v-btn v-if="!isEdit" icon @click="clickDelete(question)">
+            <v-icon> mdi-delete</v-icon>
+          </v-btn>
+        </div>
       </v-row>
 
       <QuestionItem
