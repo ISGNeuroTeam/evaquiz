@@ -142,7 +142,7 @@ export default {
 </script>
 <style scoped>
 .ai_text {
-  font-size: 13px;
+  font-size: 15px;
   text-align: left;
   padding-top: 25px;
   color: #000;
