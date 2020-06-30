@@ -146,8 +146,6 @@ const quiz = {
 
     exportQuetions(context) {
       return Api.exportQuetions(context.state.multi.array).then(data => {
-        let _file = Common.getNameAndFormat(data.data);
-        _file = Common.getNameAndFormat(_file.name);
         //очищаем мульти
         context.state.multi.count = 0;
         context.state.multi.array = [];
@@ -158,7 +156,7 @@ const quiz = {
 
         Api.downloadFromUrl(data.data).then(response => {
           Common.download(
-            { name: _file.name.split("/")[1], format: "eva.quiz" },
+            { name: new Date().toLocaleString("ru-RU"), format: "eva.quiz" },
             response
           );
         });

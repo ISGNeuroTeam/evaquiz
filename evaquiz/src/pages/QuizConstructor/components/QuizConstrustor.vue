@@ -6,7 +6,7 @@
       @close-dialog="closeDialog"
       @add-question="addQuestion"
     />
-    <v-card-text>
+    <v-card-text :key="element.name">
       <v-row align="center">
         <v-col cols="5">
           <v-textarea
@@ -86,10 +86,10 @@ export default {
       constructorQuiz: state => state.quiz.quetions
     }),
     element() {
-      if (this.constructorQuiz) {
-        return this.constructorQuiz[0];
-      } else {
+      if (this.type.toLowerCase() === "create") {
         return this.quiz;
+      } else {
+        return this.constructorQuiz[0];
       }
     },
     isDisabled() {
