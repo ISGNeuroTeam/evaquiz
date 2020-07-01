@@ -31,7 +31,7 @@
         </v-col>
       </v-row>
       <v-row align="start">
-        <v-col cols="6" class="ma-0 pa-0 qc_list">
+        <v-col cols="6" class="ma-0 pa-0 qc_list" :disabled="editAll">
           <QuestionItem :questions="quiz.questions" @edit-question="onEdit" />
         </v-col>
         <v-col cols="6" class="ma-0 pa-0">
@@ -63,15 +63,18 @@ export default {
   data() {
     return {
       dialog: false,
-      editQuestion: null,
-      quiz: null
+      editQuestion: null
     };
   },
   computed: {
     ...mapState({
       sid: state => state.quiz.constructorCount,
-      quizEdit: state => state.quiz.quetions[0]
+      quizEdit: state => state.quiz.quetions,
+      editAll: state => state.quiz.editAll
     }),
+    quiz() {
+      return JSON.parse(JSON.stringify(this.quizEdit[0]));
+    },
     isDisabled() {
       if (this.quiz.name) {
         return false;
@@ -80,9 +83,7 @@ export default {
       }
     }
   },
-  mounted() {
-    this.quiz = JSON.parse(JSON.stringify(this.quizEdit));
-  },
+
   methods: {
     ...mapActions({
       editQuiz: "quiz/editQuiz",

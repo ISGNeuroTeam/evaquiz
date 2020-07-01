@@ -13,7 +13,8 @@ const quiz = {
       array: []
     },
     constructorCount: 0,
-    editAll: true
+    editAll: true,
+    quizEditor: null
   },
   mutations: {
     SET_QUIZS(state, payload) {
@@ -96,6 +97,11 @@ const quiz = {
           }
         });
         return _filterQuizs;
+      }
+    },
+    qetQuizName(state) {
+      if (state.quizEditor) {
+        return state.quizEditor.name;
       }
     }
   },

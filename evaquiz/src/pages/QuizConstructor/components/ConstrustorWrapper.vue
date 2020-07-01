@@ -1,14 +1,13 @@
 <template>
   <v-card height="100%">
-    <v-card-title v-if="constructorQuiz.name">{{ header() }}</v-card-title>
-
+    <v-card-title>{{ header }}</v-card-title>
     <QuizCreate v-if="type === 'create'" />
     <QuizCopy v-if="type === 'copy'" />
     <QuizEdit v-if="type === 'edit'" />
   </v-card>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import QuizCreate from "./QuizCreate";
 import QuizCopy from "./QuizCopy";
 import QuizEdit from "./QuizEdit";
@@ -23,23 +22,20 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      constructorQuiz: state => state.quiz.quetions[0]
-    })
-  },
-
-  methods: {
+    ...mapGetters({
+      quizName: "quiz/qetQuizName"
+    }),
     header() {
-      if (this.type.toLowerCase() === "create") {
+      if (this.type.toLowerCase() === "copy") {
+        return 'Копирование чек-листа "' + this.quizName + '"';
+      } else if (this.type.toLowerCase() === "edit") {
+        return 'Редактирование чек-листа "' + this.quizName + '"';
+      } else {
         return "Создание нового чек-листа";
       }
-      if (this.type.toLowerCase() === "edit" && this.constructorQuiz) {
-        return 'Редактирование чек-листа "' + this.constructorQuiz.name + '"';
-      }
-      if (this.type.toLowerCase() === "copy" && this.constructorQuiz) {
-        return 'Копирование чек-листа "' + this.constructorQuiz.name + '"';
-      }
     }
-  }
+  },
+
+  methods: {}
 };
 </script>
