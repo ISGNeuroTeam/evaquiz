@@ -1,5 +1,5 @@
 <template>
-  <draggable tag="ul" :list="questions" :animation="200" :disabled="isEdit">
+  <draggable tag="ul" :list="questions" :animation="200">
     <li
       v-for="question in questions"
       :key="question.sid"
@@ -24,7 +24,7 @@
         </div>
 
         <div class="qi_delete_btn">
-          <v-btn v-if="!isEdit" icon @click="clickDelete(question)">
+          <v-btn icon @click="clickDelete(question)">
             <v-icon> mdi-delete</v-icon>
           </v-btn>
         </div>
@@ -59,10 +59,6 @@ export default {
     questions: {
       required: true,
       type: Array
-    },
-    type: {
-      type: String,
-      required: true
     }
   },
   data() {
@@ -73,18 +69,8 @@ export default {
   },
   computed: {
     ...mapState({
-      sid: state => state.quiz.constructorCount,
-      editAll: state => state.quiz.editAll
-    }),
-    isEdit() {
-      if (this.type.toLowerCase() !== "edit") {
-        return false;
-      } else if (this.editAll) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+      sid: state => state.quiz.constructorCount
+    })
   },
   methods: {
     getColor(type) {

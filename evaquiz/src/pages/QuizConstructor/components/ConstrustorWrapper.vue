@@ -1,16 +1,20 @@
 <template>
   <v-card height="100%">
     <v-card-title>{{ header() }}</v-card-title>
-    <QuizConstrustor :type="type" />
+    <QuizCreate v-if="type === 'create'" />
+    <QuizCopy v-if="type === 'copy'" />
+    <QuizEdit v-if="type === 'edit'" />
   </v-card>
 </template>
 <script>
 import { mapState } from "vuex";
-import QuizConstrustor from "./QuizConstrustor";
+import QuizCreate from "./QuizCreate";
+import QuizCopy from "./QuizCopy";
+import QuizEdit from "./QuizEdit";
 
 export default {
   name: "ConstrustorWrapper",
-  components: { QuizConstrustor },
+  components: { QuizCreate, QuizCopy, QuizEdit },
   props: {
     type: {
       type: String,
