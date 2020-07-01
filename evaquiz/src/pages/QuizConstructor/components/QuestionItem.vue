@@ -23,7 +23,7 @@
           </div>
         </div>
 
-        <div>
+        <div class="qi_delete_btn">
           <v-btn v-if="!isEdit" icon @click="clickDelete(question)">
             <v-icon> mdi-delete</v-icon>
           </v-btn>
@@ -92,7 +92,7 @@ export default {
         return "#cb9bdd";
       }
       if (type === "cascade") {
-        return "#a0cded";
+        return "#f0370d";
       }
       if (type === "multi") {
         return "#f4b75e";
@@ -104,7 +104,7 @@ export default {
         return "#f6ef9f";
       }
       if (type === "catalog") {
-        return "#d79b4f";
+        return "#81d8d0";
       }
     },
     clickAdd(question) {
@@ -172,5 +172,8 @@ ul {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 36px auto 36px;
+}
+.qi_delete_btn {
+  color: rgba(0, 0, 0, 0.3);
 }
 </style>

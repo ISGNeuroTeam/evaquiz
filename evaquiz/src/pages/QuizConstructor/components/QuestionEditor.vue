@@ -177,7 +177,7 @@ export default {
         return "#cb9bdd";
       }
       if (type === "cascade") {
-        return "#a0cded";
+        return "#f0370d";
       }
       if (type === "multi") {
         return "#f4b75e";
@@ -189,7 +189,7 @@ export default {
         return "#f6ef9f";
       }
       if (type === "catalog") {
-        return "#d79b4f";
+        return "#81d8d0";
       }
     },
     changeType() {

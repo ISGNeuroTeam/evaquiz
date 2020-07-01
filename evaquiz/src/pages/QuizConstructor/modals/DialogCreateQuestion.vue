@@ -191,12 +191,12 @@ export default {
           break;
         }
         case "cascade": {
-          this.color = "#a0cded";
+          this.color = "#f0370d";
           break;
         }
         case "catalog": {
           this.question.catalog_id = this.catalogsItems[0].id;
-          this.color = "#d79b4f";
+          this.color = "#81d8d0";
           break;
         }
       }
