@@ -6,11 +6,11 @@
       @close-dialog="closeDialog"
       @add-question="addQuestion"
     />
-    <v-card-text>
+    <v-card-text v-if="quiz && quizCopy">
       <v-row align="center">
         <v-col cols="5">
           <v-textarea
-            v-model="quizCopy.name"
+            v-model="quiz.name"
             :clearable="true"
             spellcheck="false"
             label="Название чек-листа"
@@ -32,10 +32,7 @@
       </v-row>
       <v-row align="start">
         <v-col cols="6" class="ma-0 pa-0 qc_list">
-          <QuestionItem
-            :questions="quizCopy.questions"
-            @edit-question="onEdit"
-          />
+          <QuestionItem :questions="quiz.questions" @edit-question="onEdit" />
         </v-col>
         <v-col cols="6" class="ma-0 pa-0">
           <QuestionEditor
@@ -66,7 +63,8 @@ export default {
   data() {
     return {
       dialog: false,
-      editQuestion: null
+      editQuestion: null,
+      quiz: null
     };
   },
   computed: {
@@ -75,12 +73,15 @@ export default {
       quizCopy: state => state.quiz.quetions[0]
     }),
     isDisabled() {
-      if (this.quizCopy.name) {
+      if (this.quiz.name) {
         return false;
       } else {
         return true;
       }
     }
+  },
+  mounted() {
+    this.quiz = JSON.parse(JSON.stringify(this.quizCopy));
   },
   methods: {
     ...mapActions({
@@ -107,7 +108,7 @@ export default {
       this.editQuestion = null;
     },
     action() {
-      this.createQuiz(this.quizCopy)
+      this.createQuiz(this.quiz)
         .then(() => {
           this.$store.commit("snack/SET_SNACK", {
             color: "green",

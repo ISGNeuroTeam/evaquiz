@@ -6,11 +6,11 @@
       @close-dialog="closeDialog"
       @add-question="addQuestion"
     />
-    <v-card-text>
+    <v-card-text v-if="quiz && quizEdit">
       <v-row align="center">
         <v-col cols="5">
           <v-textarea
-            v-model="element.name"
+            v-model="quiz.name"
             :clearable="true"
             spellcheck="false"
             label="Название чек-листа"
@@ -26,17 +26,13 @@
 
         <v-col cols="2" offset="4">
           <v-btn color="primary" :disabled="isDisabled" @click="action">
-            {{ buttonHeader() }}
+            Изменить
           </v-btn>
         </v-col>
       </v-row>
       <v-row align="start">
         <v-col cols="6" class="ma-0 pa-0 qc_list">
-          <QuestionItem
-            :questions="element.questions"
-            :type="type"
-            @edit-question="onEdit"
-          />
+          <QuestionItem :questions="quiz.questions" @edit-question="onEdit" />
         </v-col>
         <v-col cols="6" class="ma-0 pa-0">
           <QuestionEditor
@@ -67,36 +63,28 @@ export default {
   data() {
     return {
       dialog: false,
-      quiz: {
-        name: null,
-        questions: []
-      },
-      editQuestion: null
+      editQuestion: null,
+      quiz: null
     };
   },
   computed: {
     ...mapState({
       sid: state => state.quiz.constructorCount,
-      constructorQuiz: state => state.quiz.quetions
+      quizEdit: state => state.quiz.quetions[0]
     }),
-    element() {
-      if (this.type.toLowerCase() === "create") {
-        return this.quiz;
-      } else {
-        return this.constructorQuiz[0];
-      }
-    },
     isDisabled() {
-      if (this.element.name) {
+      if (this.quiz.name) {
         return false;
       } else {
         return true;
       }
     }
   },
+  mounted() {
+    this.quiz = JSON.parse(JSON.stringify(this.quizEdit));
+  },
   methods: {
     ...mapActions({
-      createQuiz: "quiz/createQuiz",
       editQuiz: "quiz/editQuiz",
       getCatalogs: "catalog/getCatalogs"
     }),
@@ -109,7 +97,7 @@ export default {
     },
     addQuestion(question) {
       this.dialog = false;
-      this.element.questions.push({ ...question, sid: this.sid });
+      this.quiz.questions.push({ ...question, sid: this.sid });
       this.$store.commit("quiz/CONSTRUCTORCOUNT_PLUS");
     },
     onEdit(question) {
@@ -120,18 +108,11 @@ export default {
       this.editQuestion = null;
     },
     action() {
-      if (this.type === "create" || this.type === "copy") {
-        this.create();
-      } else {
-        this.edit();
-      }
-    },
-    create() {
-      this.createQuiz(this.element)
+      this.editQuiz(this.quiz)
         .then(() => {
           this.$store.commit("snack/SET_SNACK", {
             color: "green",
-            message: "Успешно создали " + this.element.name
+            message: "Успешно изменили " + this.quizEdit.name
           });
 
           this.$router.push({ path: "/list/" });
@@ -139,37 +120,9 @@ export default {
         .catch(() => {
           this.$store.commit("snack/SET_SNACK", {
             color: "red",
-            message: "Ошибка при создании " + this.element.name
+            message: "Ошибка при редактировании " + this.quizEdit.name
           });
         });
-    },
-    edit() {
-      this.editQuiz(this.element)
-        .then(() => {
-          this.$store.commit("snack/SET_SNACK", {
-            color: "green",
-            message: "Успешно изменили " + this.element.name
-          });
-
-          this.$router.push({ path: "/list/" });
-        })
-        .catch(() => {
-          this.$store.commit("snack/SET_SNACK", {
-            color: "red",
-            message: "Ошибка изменении " + this.element.name
-          });
-        });
-    },
-    buttonHeader() {
-      if (this.type === "copy") {
-        return "Копировать";
-      }
-      if (this.type === "create") {
-        return "Создать";
-      }
-      if (this.type === "edit") {
-        return "Сохранить";
-      }
     }
   }
 };
