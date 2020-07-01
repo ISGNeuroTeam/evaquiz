@@ -68,7 +68,9 @@ export default {
     },
     getAnswer(answer) {
       if (answer.type === "date") {
-        return new Date(answer.answer.value).toLocaleDateString("ru-RU");
+        return new Date(answer.answer.value.split(" ")[0]).toLocaleDateString(
+          "ru-RU"
+        );
       }
       if (answer.type === "cascade") {
         return answer.answer.value.replace("-->", ", ");

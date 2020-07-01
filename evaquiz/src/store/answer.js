@@ -12,9 +12,9 @@ function items(answers) {
 
     a.questions.forEach(q => {
       if (q.type === "date") {
-        _item["sid" + q.sid] = new Date(q.answer.value).toLocaleDateString(
-          "ru-RU"
-        );
+        _item["sid" + q.sid] = new Date(
+          q.answer.value.split(" ")[0]
+        ).toLocaleDateString("ru-RU");
       }
       if (q.type === "multi") {
         if (q.answer.value.toLowerCase() === "yes") {
