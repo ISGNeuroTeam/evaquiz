@@ -7,7 +7,7 @@
         <router-view />
       </v-container>
     </v-content>
-    <div class="version">0.2.2</div>
+    <div class="version">0.2.3</div>
   </v-app>
 </template>
 
