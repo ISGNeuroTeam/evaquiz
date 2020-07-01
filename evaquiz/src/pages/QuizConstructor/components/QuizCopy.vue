@@ -10,7 +10,7 @@
       <v-row align="center">
         <v-col cols="5">
           <v-textarea
-            v-model="element.name"
+            v-model="quizCopy.name"
             :clearable="true"
             spellcheck="false"
             label="Название чек-листа"
@@ -26,15 +26,14 @@
 
         <v-col cols="2" offset="4">
           <v-btn color="primary" :disabled="isDisabled" @click="action">
-            {{ buttonHeader() }}
+            Копировать
           </v-btn>
         </v-col>
       </v-row>
       <v-row align="start">
         <v-col cols="6" class="ma-0 pa-0 qc_list">
           <QuestionItem
-            :questions="element.questions"
-            :type="type"
+            :questions="quizCopy.questions"
             @edit-question="onEdit"
           />
         </v-col>
@@ -67,27 +66,16 @@ export default {
   data() {
     return {
       dialog: false,
-      quiz: {
-        name: null,
-        questions: []
-      },
       editQuestion: null
     };
   },
   computed: {
     ...mapState({
       sid: state => state.quiz.constructorCount,
-      constructorQuiz: state => state.quiz.quetions
+      quizCopy: state => state.quiz.quetions[0]
     }),
-    element() {
-      if (this.type.toLowerCase() === "create") {
-        return this.quiz;
-      } else {
-        return this.constructorQuiz[0];
-      }
-    },
     isDisabled() {
-      if (this.element.name) {
+      if (this.quizCopy.name) {
         return false;
       } else {
         return true;
@@ -97,7 +85,6 @@ export default {
   methods: {
     ...mapActions({
       createQuiz: "quiz/createQuiz",
-      editQuiz: "quiz/editQuiz",
       getCatalogs: "catalog/getCatalogs"
     }),
     openDialog() {
@@ -109,7 +96,7 @@ export default {
     },
     addQuestion(question) {
       this.dialog = false;
-      this.element.questions.push({ ...question, sid: this.sid });
+      this.quiz.questions.push({ ...question, sid: this.sid });
       this.$store.commit("quiz/CONSTRUCTORCOUNT_PLUS");
     },
     onEdit(question) {
@@ -120,18 +107,11 @@ export default {
       this.editQuestion = null;
     },
     action() {
-      if (this.type === "create" || this.type === "copy") {
-        this.create();
-      } else {
-        this.edit();
-      }
-    },
-    create() {
-      this.createQuiz(this.element)
+      this.createQuiz(this.quizCopy)
         .then(() => {
           this.$store.commit("snack/SET_SNACK", {
             color: "green",
-            message: "Успешно создали " + this.element.name
+            message: "Успешно скопировали " + this.quizCopy.name
           });
 
           this.$router.push({ path: "/list/" });
@@ -139,37 +119,9 @@ export default {
         .catch(() => {
           this.$store.commit("snack/SET_SNACK", {
             color: "red",
-            message: "Ошибка при создании " + this.element.name
+            message: "Ошибка при копировалии " + this.quizCopy.name
           });
         });
-    },
-    edit() {
-      this.editQuiz(this.element)
-        .then(() => {
-          this.$store.commit("snack/SET_SNACK", {
-            color: "green",
-            message: "Успешно изменили " + this.element.name
-          });
-
-          this.$router.push({ path: "/list/" });
-        })
-        .catch(() => {
-          this.$store.commit("snack/SET_SNACK", {
-            color: "red",
-            message: "Ошибка изменении " + this.element.name
-          });
-        });
-    },
-    buttonHeader() {
-      if (this.type === "copy") {
-        return "Копировать";
-      }
-      if (this.type === "create") {
-        return "Создать";
-      }
-      if (this.type === "edit") {
-        return "Сохранить";
-      }
     }
   }
 };
