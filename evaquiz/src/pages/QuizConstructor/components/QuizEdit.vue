@@ -3,6 +3,7 @@
     <DialogCreateQuestion
       v-if="dialog"
       :dialog="dialog"
+      :disabled="editAll"
       @close-dialog="closeDialog"
       @add-question="addQuestion"
     />
@@ -11,7 +12,6 @@
         <v-col cols="5">
           <v-textarea
             v-model="quiz.name"
-            :disabled="editAll"
             :clearable="true"
             spellcheck="false"
             label="Название чек-листа"
