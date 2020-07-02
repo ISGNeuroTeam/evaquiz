@@ -60,8 +60,7 @@ export default {
       this.search = null;
     }
     this.getQuizs({
-      offset: this.$route.params.offset,
-      search: this.$route.params.search
+      offset: this.$route.params.offset
     });
   },
   beforeDestroy() {
@@ -78,9 +77,7 @@ export default {
       this.getQuizs(page - 1);
 
       this.$router.replace({
-        path: `/list/${page - 1}${
-          this.$route.params.search ? +"/" + this.$route.params.search : null
-        }`
+        path: `/list/${page - 1}`
       });
     }
   }

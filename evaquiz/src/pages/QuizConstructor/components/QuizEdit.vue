@@ -26,11 +26,7 @@
         </v-col>
 
         <v-col cols="2" offset="4">
-          <v-btn
-            color="primary"
-            :disabled="isDisabled || editAll"
-            @click="action"
-          >
+          <v-btn color="primary" :disabled="isDisabled" @click="action">
             Изменить
           </v-btn>
         </v-col>
