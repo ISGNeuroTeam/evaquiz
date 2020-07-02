@@ -6,11 +6,12 @@
       @close-dialog="closeDialog"
       @add-question="addQuestion"
     />
-    <v-card-text v-if="quiz && quizEdit">
+    <v-card-text v-if="quiz && quiz.name">
       <v-row align="center">
         <v-col cols="5">
           <v-textarea
             v-model="quiz.name"
+            :disabled="editAll"
             :clearable="true"
             spellcheck="false"
             label="Название чек-листа"
@@ -25,18 +26,31 @@
         </v-col>
 
         <v-col cols="2" offset="4">
-          <v-btn color="primary" :disabled="isDisabled" @click="action">
+          <v-btn
+            color="primary"
+            :disabled="isDisabled || editAll"
+            @click="action"
+          >
             Изменить
           </v-btn>
         </v-col>
       </v-row>
       <v-row align="start">
-        <v-col cols="6" class="ma-0 pa-0 qc_list" :disabled="editAll">
-          <QuestionItem :questions="quiz.questions" @edit-question="onEdit" />
+        <v-col v-if="quiz && quiz.questions" cols="6" class="ma-0 pa-0 qc_list">
+          <QuestionItem
+            :questions="quiz.questions"
+            :disabled="editAll"
+            @edit-question="onEdit"
+          />
         </v-col>
-        <v-col cols="6" class="ma-0 pa-0">
+        <v-col
+          v-if="quiz && quiz.questions && editQuestion"
+          cols="6"
+          class="ma-0 pa-0"
+        >
           <QuestionEditor
             v-if="editQuestion"
+            :disabled="editAll"
             :question="editQuestion"
             @edit-close="editClose"
           />
@@ -69,12 +83,10 @@ export default {
   computed: {
     ...mapState({
       sid: state => state.quiz.constructorCount,
-      quizEdit: state => state.quiz.quetions,
+      quiz: state => state.quiz.quizEditor,
       editAll: state => state.quiz.editAll
     }),
-    quiz() {
-      return JSON.parse(JSON.stringify(this.quizEdit[0]));
-    },
+
     isDisabled() {
       if (this.quiz.name) {
         return false;
@@ -113,7 +125,7 @@ export default {
         .then(() => {
           this.$store.commit("snack/SET_SNACK", {
             color: "green",
-            message: "Успешно изменили " + this.quizEdit.name
+            message: "Успешно изменили " + this.quiz.name
           });
 
           this.$router.push({ path: "/list/" });
@@ -121,7 +133,7 @@ export default {
         .catch(() => {
           this.$store.commit("snack/SET_SNACK", {
             color: "red",
-            message: "Ошибка при редактировании " + this.quizEdit.name
+            message: "Ошибка при редактировании " + this.quiz.name
           });
         });
     }

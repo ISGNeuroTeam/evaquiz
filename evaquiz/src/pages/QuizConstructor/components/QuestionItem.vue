@@ -1,5 +1,5 @@
 <template v-if="questions">
-  <draggable tag="ul" :list="questions" :animation="200">
+  <draggable tag="ul" :list="questions" :animation="200" :disabled="disabled">
     <li
       v-for="question in questions"
       :key="question.sid"
@@ -32,6 +32,7 @@
 
       <QuestionItem
         v-if="questions"
+        :disabled="disabled"
         :questions="question.childs"
         style="border-left: 2px solid #495e6d; padding-left: 10px; margin-left: 15px;"
         @edit-question="sendEditQuestion"
@@ -63,6 +64,11 @@ export default {
       default: function() {
         return null;
       }
+    },
+    disabled: {
+      required: false,
+      type: Boolean,
+      default: false
     }
   },
   data() {

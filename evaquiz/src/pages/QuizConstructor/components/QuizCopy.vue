@@ -39,7 +39,11 @@
           cols="6"
           class="ma-0 pa-0"
         >
-          <QuestionEditor :question="editQuestion" @edit-close="editClose" />
+          <QuestionEditor
+            v-if="editQuestion"
+            :question="editQuestion"
+            @edit-close="editClose"
+          />
         </v-col>
       </v-row>
     </v-card-text>
