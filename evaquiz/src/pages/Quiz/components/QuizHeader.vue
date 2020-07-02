@@ -81,10 +81,7 @@ export default {
             color: "green",
             message: "Чек-листы импортированы"
           });
-          this.getQuizs({
-            offset: this.$route.params.offset,
-            search: this.$route.params.search
-          });
+          this.getQuizs(this.$route.params.offset);
         })
         .catch(() => {
           this.$store.commit("snack/SET_SNACK", {

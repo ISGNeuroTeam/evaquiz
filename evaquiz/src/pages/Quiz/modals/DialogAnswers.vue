@@ -171,10 +171,7 @@ export default {
             message: "Ответы успешно сохранились"
           });
           //для того чтобы убрать галки мульти
-          this.getQuizs({
-            offset: this.$route.params.offset,
-            search: this.$route.params.search
-          });
+          this.getQuizs(this.$route.params.offset);
           this.close();
         })
         .catch(() => {
