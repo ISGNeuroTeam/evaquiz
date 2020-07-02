@@ -109,7 +109,7 @@ export default {
           break;
         }
         case "cascade": {
-          this.color = "#f0370d";
+          this.color = "#9a9695";
           break;
         }
         case "text": {

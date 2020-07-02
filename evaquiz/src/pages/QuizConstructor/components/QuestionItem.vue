@@ -88,7 +88,7 @@ export default {
         return "#cb9bdd";
       }
       if (type === "cascade") {
-        return "#f0370d";
+        return "#9a9695";
       }
       if (type === "multi") {
         return "#f4b75e";
