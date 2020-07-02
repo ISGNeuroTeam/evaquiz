@@ -116,11 +116,8 @@ const quiz = {
     }
   },
   actions: {
-    getQuizs(context, params) {
-      return Api.getQuizs(
-        params.offset ? params.offset * 10 : 0,
-        params.search ? params.search : ""
-      ).then(data => {
+    getQuizs(context, offset) {
+      return Api.getQuizs(offset ? offset * 10 : 0).then(data => {
         context.commit("SET_QUIZS", data.data);
       });
     },

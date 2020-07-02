@@ -59,9 +59,7 @@ export default {
     } else {
       this.search = null;
     }
-    this.getQuizs({
-      offset: this.$route.params.offset
-    });
+    this.getQuizs(this.$route.params.offset);
   },
   beforeDestroy() {
     this.$store.commit("quiz/SET_FILTER", null);
