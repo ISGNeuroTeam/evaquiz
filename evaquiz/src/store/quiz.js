@@ -33,6 +33,16 @@ const quiz = {
         state.editAll = true;
       }
     },
+
+    SET_QUIZ_EDITOR(state, payload) {
+      state.quizEditor = payload[0][0];
+      if (Number(payload[1]) === Number(0)) {
+        state.editAll = false;
+      } else {
+        state.editAll = true;
+      }
+    },
+
     SET_QUETIONS_MULTI(state, payload) {
       payload.forEach(p => {
         p.questions.forEach(question => {
@@ -127,6 +137,17 @@ const quiz = {
       Promise.all([Api.getQuestions(quiz.id), Api.getAnswer(quiz.id)]).then(
         data => {
           context.commit("SET_QUETIONS", [
+            data[0].data.data,
+            data[1].data.count
+          ]);
+        }
+      );
+    },
+
+    getQuizEditor(context, quiz) {
+      Promise.all([Api.getQuestions(quiz.id), Api.getAnswer(quiz.id)]).then(
+        data => {
+          context.commit("SET_QUIZ_EDITOR", [
             data[0].data.data,
             data[1].data.count
           ]);

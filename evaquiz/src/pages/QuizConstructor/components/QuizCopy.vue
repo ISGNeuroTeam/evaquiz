@@ -6,7 +6,7 @@
       @close-dialog="closeDialog"
       @add-question="addQuestion"
     />
-    <v-card-text v-if="quiz && quizCopy">
+    <v-card-text v-if="quiz && quiz.name">
       <v-row align="center">
         <v-col cols="5">
           <v-textarea
@@ -31,15 +31,15 @@
         </v-col>
       </v-row>
       <v-row align="start">
-        <v-col cols="6" class="ma-0 pa-0 qc_list">
+        <v-col v-if="quiz && quiz.questions" cols="6" class="ma-0 pa-0 qc_list">
           <QuestionItem :questions="quiz.questions" @edit-question="onEdit" />
         </v-col>
-        <v-col cols="6" class="ma-0 pa-0">
-          <QuestionEditor
-            v-if="editQuestion"
-            :question="editQuestion"
-            @edit-close="editClose"
-          />
+        <v-col
+          v-if="quiz && quiz.questions && editQuestion"
+          cols="6"
+          class="ma-0 pa-0"
+        >
+          <QuestionEditor :question="editQuestion" @edit-close="editClose" />
         </v-col>
       </v-row>
     </v-card-text>
@@ -63,14 +63,13 @@ export default {
   data() {
     return {
       dialog: false,
-      editQuestion: null,
-      quiz: null
+      editQuestion: null
     };
   },
   computed: {
     ...mapState({
       sid: state => state.quiz.constructorCount,
-      quizCopy: state => state.quiz.quetions[0]
+      quiz: state => state.quiz.quizEditor
     }),
     isDisabled() {
       if (this.quiz.name) {
@@ -79,9 +78,6 @@ export default {
         return true;
       }
     }
-  },
-  mounted() {
-    this.quiz = JSON.parse(JSON.stringify(this.quizCopy));
   },
   methods: {
     ...mapActions({
@@ -112,7 +108,7 @@ export default {
         .then(() => {
           this.$store.commit("snack/SET_SNACK", {
             color: "green",
-            message: "Успешно скопировали " + this.quizCopy.name
+            message: "Успешно скопировали " + this.quiz.name
           });
 
           this.$router.push({ path: "/list/" });
@@ -120,7 +116,7 @@ export default {
         .catch(() => {
           this.$store.commit("snack/SET_SNACK", {
             color: "red",
-            message: "Ошибка при копировалии " + this.quizCopy.name
+            message: "Ошибка при копировалии " + this.quiz.name
           });
         });
     }

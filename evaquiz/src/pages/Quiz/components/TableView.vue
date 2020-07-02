@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      getQuestions: "quiz/getQuestions"
+      getQuestions: "quiz/getQuizEditor"
     }),
 
     changeCheckbox(item) {

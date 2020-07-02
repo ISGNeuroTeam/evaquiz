@@ -1,4 +1,4 @@
-<template>
+<template v-if="questions">
   <draggable tag="ul" :list="questions" :animation="200">
     <li
       v-for="question in questions"
@@ -31,6 +31,7 @@
       </v-row>
 
       <QuestionItem
+        v-if="questions"
         :questions="question.childs"
         style="border-left: 2px solid #495e6d; padding-left: 10px; margin-left: 15px;"
         @edit-question="sendEditQuestion"
@@ -58,7 +59,10 @@ export default {
   props: {
     questions: {
       required: true,
-      type: Array
+      type: Array,
+      default: function() {
+        return null;
+      }
     }
   },
   data() {

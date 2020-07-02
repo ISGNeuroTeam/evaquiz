@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      getQuestions: "quiz/getQuestions"
+      getQuestions: "quiz/getQuizEditor"
     }),
     clickDelete() {
       this.isDeleteModal = true;

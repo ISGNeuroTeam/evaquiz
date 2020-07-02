@@ -116,7 +116,10 @@ export default {
   props: {
     question: {
       type: Object,
-      required: true
+      required: true,
+      default: function() {
+        return null;
+      }
     }
   },
   data() {
