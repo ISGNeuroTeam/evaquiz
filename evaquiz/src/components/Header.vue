@@ -1,5 +1,6 @@
 <template>
   <v-app-bar light app color="primary" class="link-conteiner">
+    <v-toolbar-title> <a href="/" class="logo">EVA</a> </v-toolbar-title>
     <v-toolbar-title>
       <router-link to="/list" class="link-style --first">Список </router-link>
     </v-toolbar-title>
@@ -20,6 +21,14 @@ export default {
 };
 </script>
 <style scoped>
+.logo {
+  font-family: serif;
+  color: white;
+  opacity: 0.4;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
 .link-style {
   color: black;
   text-decoration: none;
@@ -28,7 +37,7 @@ export default {
   border-right: 2px solid black;
 }
 .--first {
-  padding-left: 0;
+  padding-left: 10;
 }
 .--last {
   padding-right: 0px;
