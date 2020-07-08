@@ -10,8 +10,11 @@
       </div>
     </v-col>
     <v-col cols="1">
-      <v-icon v-if="multiCount" @click="clickExport">mdi-export</v-icon>
-      <v-icon v-else @click="clickImport">mdi-import</v-icon>
+      <div v-if="isQuizAdmin">
+        <v-icon v-if="multiCount" @click="clickExport">mdi-export</v-icon>
+        <v-icon v-else @click="clickImport">mdi-import</v-icon>
+      </div>
+
       <input
         ref="uploader"
         type="file"
@@ -22,7 +25,7 @@
     </v-col>
 
     <v-col offset="9" cols="1" class="qh_button  text-right pr-8">
-      <v-btn color="primary" @click="create">
+      <v-btn v-if="isQuizAdmin" color="primary" @click="create">
         <v-icon>mdi-plus-circle-outline</v-icon>
       </v-btn>
     </v-col>
@@ -32,6 +35,8 @@
 <script>
 import { mapState } from "vuex";
 import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
+
 export default {
   name: "QuizHeader",
   props: {
@@ -47,6 +52,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      isQuizAdmin: "user/isQuizAdmin"
+    }),
     ...mapState({
       multiCount: state => state.quiz.multi.count
     })

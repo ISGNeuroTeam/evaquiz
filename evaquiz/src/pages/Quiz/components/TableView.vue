@@ -36,7 +36,7 @@
         <span class="tv_multi_number">{{ item.multi }}</span>
       </template>
 
-      <template v-slot:item.actions="{ item }">
+      <template v-if="isQuizAdmin" v-slot:item.actions="{ item }">
         <v-icon class="mr-2" @click="clickCopy(item)"> mdi-content-copy</v-icon>
         <v-icon class="mr-2" @click="clickEdit(item)"> mdi-pencil</v-icon>
         <v-icon class="mr-2" @click="clickDelete(item)"> mdi-delete</v-icon>
@@ -92,7 +92,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      quizs: "quiz/filterQuizs"
+      quizs: "quiz/filterQuizs",
+      isQuizAdmin: "user/isQuizAdmin"
     })
   },
   methods: {
