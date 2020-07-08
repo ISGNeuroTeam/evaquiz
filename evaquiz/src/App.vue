@@ -14,11 +14,21 @@
 <script>
 import Snackbar from "@/components/Snackbar";
 import Header from "@/components/Header";
+import { mapActions } from "vuex";
+
 export default {
   name: "App",
   components: {
     Snackbar,
     Header
+  },
+  mounted() {
+    this.getPermissions();
+  },
+  methods: {
+    ...mapActions({
+      getPermissions: "user/getPermissions"
+    })
   }
 };
 </script>

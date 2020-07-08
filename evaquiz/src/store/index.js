@@ -6,6 +6,7 @@ import snack from "./snack";
 import answer from "./answer";
 import catalog from "./catalog";
 import generator from "./generator";
+import user from "./user";
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     answer,
     snack,
     catalog,
-    generator
+    generator,
+    user
   }
 });

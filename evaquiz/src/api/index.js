@@ -71,5 +71,8 @@ export default {
   },
   deleteCatalog(catalogID) {
     return baseUrl().delete(`/qapi/catalog/delete?id=${catalogID}`);
+  },
+  getPermissions() {
+    return baseUrl().get("/api/user/permissions");
   }
 };
