@@ -20,14 +20,22 @@
       :items-per-page="100"
     >
       <template v-slot:item.actions="{ item }">
-        <v-icon class="mr-2" @click="clickEdit(item)"> mdi-pencil</v-icon>
-        <v-icon class="mr-2" @click="clickDelete(item)"> mdi-delete</v-icon>
+        <v-icon v-if="isQuizAdmin" class="mr-2" @click="clickEdit(item)">
+          mdi-pencil</v-icon
+        >
+        <v-icon v-else class="mr-2" @click="clickEdit(item)">
+          mdi-magnify</v-icon
+        >
+        <v-icon v-if="isQuizAdmin" class="mr-2" @click="clickDelete(item)">
+          mdi-delete</v-icon
+        >
       </template>
     </v-data-table>
   </div>
 </template>
 <script>
 import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import DirectoryDelete from "../modals/DirectoryDelete";
 import DirectoryUpdate from "../modals/DirectoryUpdate";
 
@@ -66,6 +74,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      isQuizAdmin: "user/isQuizAdmin"
+    }),
     ...mapState({
       catalogs: state => state.catalog.catalogs.data
     })

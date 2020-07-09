@@ -12,7 +12,7 @@
         </v-col>
 
         <v-col offset="8" cols="1">
-          <v-btn dark color="primary" @click="openDialog">
+          <v-btn v-if="isQuizAdmin" dark color="primary" @click="openDialog">
             <v-icon>mdi-plus-circle-outline</v-icon>
           </v-btn>
         </v-col>
@@ -24,6 +24,8 @@
 <script>
 import DirectoryUpdate from "../modals/DirectoryUpdate";
 import DirectoryTable from "./DirectoryTable";
+import { mapGetters } from "vuex";
+
 export default {
   name: "DirectoryHeader",
   components: {
@@ -35,6 +37,11 @@ export default {
       filter: null,
       dialog: false
     };
+  },
+  computed: {
+    ...mapGetters({
+      isQuizAdmin: "user/isQuizAdmin"
+    })
   },
   methods: {
     openDialog() {

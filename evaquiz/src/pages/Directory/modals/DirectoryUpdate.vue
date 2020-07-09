@@ -1,10 +1,12 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="650" class="du_dialog">
     <v-card>
-      <v-card-title>
+      <v-card-title v-if="isQuizAdmin">
         {{ catalogID ? "Изменить справочник" : "Создать новый справочник" }}
       </v-card-title>
-
+      <v-card-title v-else>
+        Просмотр справочника
+      </v-card-title>
       <v-card-text>
         <v-row align="center">
           <v-col cols="12">
@@ -42,7 +44,12 @@
       <v-card-actions>
         <v-btn color="gray" @click="close">Закрыть</v-btn>
         <v-spacer />
-        <v-btn color="primary" :disabled="isDisabled" @click="action">
+        <v-btn
+          v-if="isQuizAdmin"
+          color="primary"
+          :disabled="isDisabled"
+          @click="action"
+        >
           {{ catalogID ? "Изменить" : "Создать" }}
         </v-btn>
       </v-card-actions>
@@ -53,6 +60,7 @@
 <script>
 import { mapActions } from "vuex";
 import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "DirectoryUpdate",
@@ -76,6 +84,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      isQuizAdmin: "user/isQuizAdmin"
+    }),
     ...mapState({
       catalog: state => state.catalog.catalog
     }),
