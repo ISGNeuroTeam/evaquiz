@@ -42,6 +42,26 @@
         Информация
       </router-link>
     </v-toolbar-title>
+    <v-spacer />
+    <v-toolbar-title class="username">
+      {{ this.$jwt.decode().username }}
+    </v-toolbar-title>
+
+    <v-toolbar-title>
+      <v-tooltip bottom color="#41C4FF">
+        <template v-slot:activator="{ on }">
+          <v-icon
+            color="white"
+            class="header_icon"
+            v-on="on"
+            @click="clickDoor"
+          >
+            mdi-door
+          </v-icon>
+        </template>
+        <span>Выйти из профиля</span>
+      </v-tooltip>
+    </v-toolbar-title>
   </v-app-bar>
 </template>
 
@@ -54,6 +74,11 @@ export default {
     },
     clickBack() {
       this.$router.go(-1);
+    },
+    clickDoor() {
+      document.cookie = `eva-dashPage=''; max-age=0 ; path=/`;
+      document.cookie = `eva_token=''; max-age=0 ; path=/`;
+      window.location.href = `/`;
     }
   }
 };
@@ -67,6 +92,14 @@ export default {
   font-weight: bold;
   text-decoration: none;
   padding-right: 5px;
+}
+.username {
+  font-family: serif;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  padding-right: 12px;
+  border-right: 1px solid white;
 }
 .link-style {
   color: black;
